@@ -5200,6 +5200,20 @@ public final class Settings {
         public static final String LOCKSCREEN_BATTERY_INFO = "lockscreen_battery_info";
 
         /**
+         * whether to enable or disable vibration on fingerprint auth success
+         *
+         * @hide
+         */
+        public static final String FINGERPRINT_SUCCESS_VIB = "fingerprint_success_vib";
+
+        /**
+         * whether to enable or disable vibration on fingerprint auth error
+         *
+         * @hide
+         */
+        public static final String FINGERPRINT_ERROR_VIB = "fingerprint_error_vib";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
