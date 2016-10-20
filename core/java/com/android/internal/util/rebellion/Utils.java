@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.om.IOverlayManager;
 import android.content.om.OverlayInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.content.pm.PackageInfo;
 import android.hardware.input.InputManager;
 import android.hardware.fingerprint.FingerprintManager;
@@ -43,6 +44,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
 import com.android.internal.R;
+
+import java.util.Locale;
 
 import java.util.List;
 
@@ -137,6 +140,12 @@ public class Utils {
     // Check to see if device supports an alterative ambient display package
     public static boolean hasAltAmbientDisplay(Context context) {
         return context.getResources().getBoolean(com.android.internal.R.bool.config_alt_ambient_display);
+    }
+
+    // Check for Chinese language
+    public static boolean isChineseLanguage() {
+       return Resources.getSystem().getConfiguration().locale.getLanguage().startsWith(
+               Locale.CHINESE.getLanguage());
     }
 
     public static boolean deviceHasFlashlight(Context ctx) {
@@ -272,5 +281,6 @@ public class Utils {
                 throws RemoteException {
             return mService.getOverlayInfosForTarget(target, userId);
         }
+
     }
 }
