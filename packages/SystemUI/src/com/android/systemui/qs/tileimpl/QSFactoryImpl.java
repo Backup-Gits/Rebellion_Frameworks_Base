@@ -47,6 +47,7 @@ import com.android.systemui.qs.tiles.UiModeNightTile;
 import com.android.systemui.qs.tiles.SoundTile;
 import com.android.systemui.qs.tiles.ScreenshotTile;
 import com.android.systemui.qs.tiles.UserTile;
+import com.android.systemui.qs.tiles.WeatherTile;
 import com.android.systemui.qs.tiles.WifiTile;
 import com.android.systemui.qs.tiles.WorkModeTile;
 import com.android.systemui.util.leak.GarbageMonitor;
@@ -203,6 +204,8 @@ public class QSFactoryImpl implements QSFactory {
                 return new ScreenshotTile(mHost);
             case "heads_up":
                 return new HeadsUpTile(mHost);
+            case "weather":
+                return new WeatherTile(mHost);
         }
 
         // Intent tiles.
