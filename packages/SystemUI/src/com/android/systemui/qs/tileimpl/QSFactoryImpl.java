@@ -32,6 +32,7 @@ import com.android.systemui.qs.tiles.BluetoothTile;
 import com.android.systemui.qs.tiles.CastTile;
 import com.android.systemui.qs.tiles.CellularTile;
 import com.android.systemui.qs.tiles.ColorInversionTile;
+import com.android.systemui.qs.tiles.CompassTile;
 import com.android.systemui.qs.tiles.DataSaverTile;
 import com.android.systemui.qs.tiles.DndTile;
 import com.android.systemui.qs.tiles.FlashlightTile;
@@ -93,6 +94,7 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<SmartPixelsTile> mSmartPixelsTileProvider;
     private final Provider<GamingModeTile> mGamingModeTileProvider;
     private final Provider<LteTile> mLteTileProvider;
+    private final Provider<CompassTile> mCompassTileProvider;
 
     private QSTileHost mHost;
 
@@ -122,7 +124,8 @@ public class QSFactoryImpl implements QSFactory {
             Provider<SyncTile> syncTileProvider,
             Provider<SmartPixelsTile> smartPixelsTileProvider,
             Provider<GamingModeTile> gamingModeTileProvider,
-            Provider<LteTile> lteTileProvider) {
+            Provider<LteTile> lteTileProvider,
+            Provider<CompassTile> compassTileProvider) {
         mWifiTileProvider = wifiTileProvider;
         mBluetoothTileProvider = bluetoothTileProvider;
         mCellularTileProvider = cellularTileProvider;
@@ -149,6 +152,7 @@ public class QSFactoryImpl implements QSFactory {
         mSmartPixelsTileProvider = smartPixelsTileProvider;
         mGamingModeTileProvider = gamingModeTileProvider;
         mLteTileProvider = lteTileProvider;
+        mCompassTileProvider = compassTileProvider;
     }
 
     public void setHost(QSTileHost host) {
@@ -224,6 +228,8 @@ public class QSFactoryImpl implements QSFactory {
                 return mGamingModeTileProvider.get();
             case "lte":
                 return mLteTileProvider.get();
+            case "compass":
+                return mCompassTileProvider.get();
         }
 
         // Intent tiles.
