@@ -10375,6 +10375,13 @@ public final class Settings {
          */
         public static final String GRADIENT_COLOR_PROP = "gradient_color_prop";
 
+	/*
+         * Hide lockscreen shortcuts on secure lock screens
+         *
+         * @hide
+         */
+        public static final String HIDE_LOCK_SHORTCUTS = "hide_lock_shortcuts";
+
         /**
          * This are the settings to be backed up.
          *
