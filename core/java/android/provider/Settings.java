@@ -5281,6 +5281,25 @@ public final class Settings {
         public static final String HIDE_LOCKSCREEN_STATUS_BAR = "hide_lockscreen_status_bar";
 
         /**
+         * 0 = off
+	 * 1 = left
+	 * 2 = right
+         */
+        public static final String STATUS_BAR_LOGO = "status_bar_logo";
+
+        /**
+	 ** Statusbar logo Style
+	 ** @hide
+	 **/
+	 public static final String STATUS_BAR_LOGO_STYLE = "status_bar_logo_style";
+
+	/**
+	 ** Statusbar logo Color
+	 ** @hide
+         **/
+	public static final String STATUS_BAR_LOGO_COLOR = "status_bar_logo_color";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5533,6 +5552,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LOCKSCREEN_MEDIA_METADATA);
             PRIVATE_SETTINGS.add(LOCKSCREEN_MEDIA_BLUR);
 	    PRIVATE_SETTINGS.add(HIDE_LOCKSCREEN_STATUS_BAR);
+            PRIVATE_SETTINGS.add(STATUS_BAR_LOGO);
         }
 
         /**
