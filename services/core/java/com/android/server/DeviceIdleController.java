@@ -1164,6 +1164,9 @@ public class DeviceIdleController extends SystemService
             mResolver.registerContentObserver(
                     Settings.Global.getUriFor(Settings.Global.AGGRESSIVE_IDLE_ENABLED),
                     false, this);
+            mResolver.registerContentObserver(Settings.Global.getUriFor(
+                    Settings.Global.DEVICE_IDLE_CONSTANTS_USER),
+                    false, this);
             updateConstants();
         }
 
@@ -1184,9 +1187,14 @@ public class DeviceIdleController extends SystemService
         private void updateConstants() {
             synchronized (DeviceIdleController.this) {
                 try {
-                    mParser.setString(Settings.Global.getString(mResolver,
-                            Settings.Global.DEVICE_IDLE_CONSTANTS));
-
+                    String userValues = Settings.Global.getString(mResolver,
+                            Settings.Global.DEVICE_IDLE_CONSTANTS_USER);
+                    if (userValues == null) {
+                        mParser.setString(Settings.Global.getString(mResolver,
+                                        Settings.Global.DEVICE_IDLE_CONSTANTS));
+                    } else {
+                        mParser.setString(userValues);
+                    }
                     // Check if aggressive_standby_enabled has changed
                     mAggressiveIdle = Settings.Global.getInt(mResolver,
                         Settings.Global.AGGRESSIVE_IDLE_ENABLED) == 1;
