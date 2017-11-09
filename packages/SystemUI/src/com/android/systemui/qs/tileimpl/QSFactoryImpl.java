@@ -55,6 +55,7 @@ import com.android.systemui.qs.tiles.SoundSearchTile;
 import com.android.systemui.qs.tiles.UiModeNightTile;
 import com.android.systemui.qs.tiles.SoundTile;
 import com.android.systemui.qs.tiles.ScreenshotTile;
+import com.android.systemui.qs.tiles.ScreenStabilizationTile;
 import com.android.systemui.qs.tiles.UserTile;
 import com.android.systemui.qs.tiles.WeatherTile;
 import com.android.systemui.qs.tiles.WifiTile;
@@ -105,6 +106,7 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<SoundSearchTile> mSoundSearchTileProvider;
     private final Provider<DataSwitchTile> mDataSwitchTileProvider;
     private final Provider<AdbOverNetworkTile> mAdbOverNetworkProvider;
+    private final Provider<ScreenStabilizationTile> mScreenStabilizationTileProvider;
 
     private QSTileHost mHost;
 
@@ -140,7 +142,8 @@ public class QSFactoryImpl implements QSFactory {
             Provider<RebootTile> rebootTileProvider,
             Provider<SoundSearchTile> soundSearchTileProvider,
             Provider<DataSwitchTile> dataSwitchTileProvider,
-            Provider<AdbOverNetworkTile> adbOverNetworkProvider) {
+            Provider<AdbOverNetworkTile> adbOverNetworkProvider,
+            Provider<ScreenStabilizationTile> screenStabilizationTileProvider) {
         mWifiTileProvider = wifiTileProvider;
         mBluetoothTileProvider = bluetoothTileProvider;
         mCellularTileProvider = cellularTileProvider;
@@ -173,6 +176,7 @@ public class QSFactoryImpl implements QSFactory {
         mSoundSearchTileProvider = soundSearchTileProvider;
         mDataSwitchTileProvider = dataSwitchTileProvider;
         mAdbOverNetworkProvider = adbOverNetworkProvider;
+        mScreenStabilizationTileProvider = screenStabilizationTileProvider;
     }
 
     public void setHost(QSTileHost host) {
@@ -260,6 +264,8 @@ public class QSFactoryImpl implements QSFactory {
                 return mDataSwitchTileProvider.get();
             case "adb_network":
                 return mAdbOverNetworkProvider.get();
+            case "screenstabilization":
+                return mScreenStabilizationTileProvider.get();
         }
 
         // Intent tiles.
