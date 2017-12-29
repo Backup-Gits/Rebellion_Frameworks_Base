@@ -93,4 +93,14 @@
     <!-- True if the home button has the ability to wake up phone from lockscreen-->
     <bool name="config_HomeWakeButton">false</bool>
 
+    <!-- Power menu -->
+    <string-array translatable="false" name="config_custom_globalActionsList">
+        <item>power</item>
+        <item>restart</item>
+        <item>advanced</item>
+        <item>lockdown</item>
+        <item>logout</item>
+        <item>screenshot</item>
+    </string-array>
+
 </resources>
