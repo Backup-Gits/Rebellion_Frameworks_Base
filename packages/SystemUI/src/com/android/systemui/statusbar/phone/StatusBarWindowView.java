@@ -134,6 +134,10 @@ public class StatusBarWindowView extends FrameLayout implements Tunable {
 
         @Override
         public boolean onDoubleTap(MotionEvent e) {
+            if (mIsMusicTickerTap) {
+                mService.handleSystemKey(KeyEvent.KEYCODE_MEDIA_NEXT);
+                return true;
+            }
             if (mDoubleTapEnabled || mSingleTapEnabled || mDoubleTapEnabledNative) {
                 mService.wakeUpIfDozing(SystemClock.uptimeMillis(), StatusBarWindowView.this,
                         "DOUBLE_TAP");
@@ -171,6 +175,9 @@ public class StatusBarWindowView extends FrameLayout implements Tunable {
 
     private boolean mShowAutoBrightnessButton;
     private boolean mShowBrightnessSideButtons;
+
+    private boolean mIsMusicTickerTap;
+
 
     public StatusBarWindowView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -444,9 +451,15 @@ public class StatusBarWindowView extends FrameLayout implements Tunable {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         NotificationStackScrollLayout stackScrollLayout = getStackScrollLayout();
-        if (mService.isDozing() && !mService.isPulsing()) {
-            // Capture all touch events in always-on.
-            return true;
+        mIsMusicTickerTap = false;
+        if (mService.isDozing()) {
+            if (mService.isDoubleTapOnMusicTicker(ev.getX(), ev.getY())) {
+                mIsMusicTickerTap = true;
+            }
+            if (!mService.isPulsing()) {
+                // Capture all touch events in always-on.
+                return true;
+            }
         }
         boolean intercept = false;
         if (mNotificationPanel.isFullyExpanded()
