@@ -92,4 +92,8 @@
     <java-symbol type="drawable" name="ic_lock_restart_ui" />
     <java-symbol type="drawable" name="ic_lock_torch" />
 
+    <!-- Alternative keyhandler -->
+    <java-symbol type="string" name="config_alternativeDeviceKeyHandlerLib" />
+    <java-symbol type="string" name="config_alternativeDeviceKeyHandlerClass" />
+
 </resources>
