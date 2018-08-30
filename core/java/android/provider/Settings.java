@@ -5401,6 +5401,17 @@ public final class Settings {
         public static final String STATUS_BAR_SHOW_WEATHER_TEMP = "status_bar_show_weather_temp";
 
         /**
+         * @hide
+         */
+        public static final String OMNI_LOCKSCREEN_WEATHER_ENABLED = "lockscreen_weather_enabled";
+
+        /**
+         * @hide
+         */
+        private static final Validator OMNI_LOCKSCREEN_WEATHER_ENABLED_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5494,6 +5505,7 @@ public final class Settings {
             OMNI_FAST_BATTERY_LIGHT_COLOR,
             OMNI_FAST_CHARGING_LED_ENABLED,
             OMNI_BATTERY_LIGHT_ONLY_FULLY_CHARGED,
+            OMNI_LOCKSCREEN_WEATHER_ENABLED,
         };
 
         /**
@@ -5660,6 +5672,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(OMNI_FAST_BATTERY_LIGHT_COLOR);
             PRIVATE_SETTINGS.add(OMNI_FAST_CHARGING_LED_ENABLED);
             PRIVATE_SETTINGS.add(OMNI_BATTERY_LIGHT_ONLY_FULLY_CHARGED);
+            PRIVATE_SETTINGS.add(OMNI_LOCKSCREEN_WEATHER_ENABLED);
         }
 
         /**
@@ -5783,6 +5796,7 @@ public final class Settings {
             VALIDATORS.put(OMNI_FAST_BATTERY_LIGHT_COLOR, OMNI_FAST_BATTERY_LIGHT_COLOR_VALIDATOR);
             VALIDATORS.put(OMNI_FAST_CHARGING_LED_ENABLED, OMNI_FAST_CHARGING_LED_ENABLED_VALIDATOR);
             VALIDATORS.put(OMNI_BATTERY_LIGHT_ONLY_FULLY_CHARGED, OMNI_BATTERY_LIGHT_ONLY_FULLY_CHARGED_VALIDATOR);
+            VALIDATORS.put(OMNI_LOCKSCREEN_WEATHER_ENABLED, OMNI_LOCKSCREEN_WEATHER_ENABLED_VALIDATOR);
         }
 
         /**

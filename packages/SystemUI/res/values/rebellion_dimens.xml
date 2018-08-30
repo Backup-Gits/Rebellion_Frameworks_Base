@@ -41,5 +41,8 @@
     <!-- Custom Carrier Label -->
     <dimen name="status_bar_carrier_height">14dp</dimen>
 
+    <!-- OmniJaws -->
+    <dimen name="current_weather_image_size">42dp</dimen>
+
 </resources>
 
