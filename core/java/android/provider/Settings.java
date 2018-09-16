@@ -6384,6 +6384,14 @@ public final class Settings {
                new SettingsValidators.InclusiveIntegerRangeValidator(0, 100);
 
         /**
+         * Show Weather on
+         * 0 - Statusbar (default)
+         * 1 - QS Header
+         * @hide
+         */
+        public static final String STATUS_BAR_SHOW_WEATHER_LOCATION = "status_bar_show_weather_location";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
