@@ -107,6 +107,8 @@ public class KeyguardStatusView extends GridLayout implements
                 updateSettings();
                 mClockView.refreshLockFont();
 		refreshLockDateFont();
+		mClockView.refreshclocksize();
+		mKeyguardSlice.refreshdatesize();
             }
         }
 
@@ -128,6 +130,9 @@ public class KeyguardStatusView extends GridLayout implements
             updateSettings();
             mClockView.refreshLockFont();
             refreshLockDateFont();
+	    refreshLockDateFont();
+	    mClockView.refreshclocksize();
+	    mKeyguardSlice.refreshdatesize();
         }
 
         @Override
@@ -210,6 +215,8 @@ public class KeyguardStatusView extends GridLayout implements
         updateSettings();
         mClockView.refreshLockFont();
 	refreshLockDateFont();
+        mClockView.refreshclocksize();
+	mKeyguardSlice.refreshdatesize();
 
         mTextColor = mClockView.getCurrentTextColor();
 
@@ -259,8 +266,7 @@ public class KeyguardStatusView extends GridLayout implements
     @Override
     public void onDensityOrFontScaleChanged() {
         if (mClockView != null) {
-            mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                    getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
+            mClockView.refreshclocksize();
         }
         if (mOwnerInfo != null) {
             mOwnerInfo.setTextSize(TypedValue.COMPLEX_UNIT_PX,
@@ -302,10 +308,6 @@ public class KeyguardStatusView extends GridLayout implements
             return 0;
         }
         return mLogoutView.getVisibility() == VISIBLE ? mLogoutView.getHeight() : 0;
-    }
-
-    public float getClockTextSize() {
-        return mClockView.getTextSize();
     }
 
     private void refreshLockDateFont() {
@@ -420,6 +422,10 @@ public class KeyguardStatusView extends GridLayout implements
 	if (lockDateFont == 35) {
             mKeyguardSlice.setViewsTypeface(Typeface.create("phantombold-sys", Typeface.NORMAL));
         }
+    }
+
+    public float getClockTextSize() {
+        return mClockView.getTextSize();
     }
 
     /**
