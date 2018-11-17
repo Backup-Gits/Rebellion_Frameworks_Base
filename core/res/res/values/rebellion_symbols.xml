@@ -207,4 +207,9 @@
   <java-symbol type="bool" name="config_FastChargingLedSupported" />
   <java-symbol type="integer" name="config_notificationsFastBatteryARGB" />
 
+  <!-- Powermenu animations -->
+  <java-symbol type="style" name="GlobalActionsAnimation" />
+  <java-symbol type="style" name="GlobalActionsAnimationTop" />
+  <java-symbol type="style" name="GlobalActionsAnimationEnter" />
+
 </resources>
