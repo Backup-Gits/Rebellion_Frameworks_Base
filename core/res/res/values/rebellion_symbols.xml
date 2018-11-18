@@ -216,6 +216,7 @@
   <java-symbol type="style" name="GlobalActionsAnimationTranslucent" />
   <java-symbol type="style" name="GlobalActionsAnimationXylon" />
   <java-symbol type="style" name="GlobalActionsAnimationCard" />
+  <java-symbol type="style" name="GlobalActionsAnimationRotate" />
 
     <!-- Smart charging -->
     <java-symbol type="integer" name="config_smartChargingBatteryLevel" />
