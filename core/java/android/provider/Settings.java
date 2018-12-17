@@ -5343,6 +5343,39 @@ public final class Settings {
        public static final String BATTERY_LIGHT_REALLYFULL_COLOR = "battery_light_reallyfull_color";
 
         /**
+         * Whether the battery light should only be enabled on fully charged battery.
+         * The value is boolean (1 or 0).
+         * @hide
+         */
+        public static final String OMNI_BATTERY_LIGHT_ONLY_FULLY_CHARGED =
+                "battery_light_only_fully_charged";
+
+        /** @hide */
+        private static final Validator OMNI_BATTERY_LIGHT_ONLY_FULLY_CHARGED_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
+         * What color to use for the battery LED while charging - low
+         * @hide
+         */
+        public static final String OMNI_FAST_BATTERY_LIGHT_COLOR = "fast_battery_light_color";
+
+        /** @hide */
+        private static final Validator OMNI_FAST_BATTERY_LIGHT_COLOR_VALIDATOR =
+                ANY_STRING_VALIDATOR;
+
+        /**
+         * Whether the fast charging battery light is enabled
+         * The value is boolean (1 or 0).
+         * @hide
+         */
+        public static final String OMNI_FAST_CHARGING_LED_ENABLED = "fast_charging_led_enabled";
+
+        /** @hide */
+        private static final Validator OMNI_FAST_CHARGING_LED_ENABLED_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5433,6 +5466,9 @@ public final class Settings {
             STATUSBAR_CLOCK_DATE_FORMAT,
 	    STATUSBAR_CLOCK_DATE_POSITION,
             LOCKSCREEN_MEDIA_BLUR,
+            OMNI_FAST_BATTERY_LIGHT_COLOR,
+            OMNI_FAST_CHARGING_LED_ENABLED,
+            OMNI_BATTERY_LIGHT_ONLY_FULLY_CHARGED,
         };
 
         /**
@@ -5596,6 +5632,9 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LOCKSCREEN_MEDIA_BLUR);
 	    PRIVATE_SETTINGS.add(HIDE_LOCKSCREEN_STATUS_BAR);
             PRIVATE_SETTINGS.add(STATUS_BAR_LOGO);
+            PRIVATE_SETTINGS.add(OMNI_FAST_BATTERY_LIGHT_COLOR);
+            PRIVATE_SETTINGS.add(OMNI_FAST_CHARGING_LED_ENABLED);
+            PRIVATE_SETTINGS.add(OMNI_BATTERY_LIGHT_ONLY_FULLY_CHARGED);
         }
 
         /**
@@ -5716,6 +5755,9 @@ public final class Settings {
 	    VALIDATORS.put(STATUSBAR_CLOCK_DATE_POSITION, STATUSBAR_CLOCK_DATE_POSITION_VALIDATOR);
             VALIDATORS.put(LOCKSCREEN_MEDIA_METADATA, LOCKSCREEN_MEDIA_METADATA_VALIDATOR);
             VALIDATORS.put(LOCKSCREEN_MEDIA_BLUR, LOCKSCREEN_MEDIA_BLUR_VALIDATOR);
+            VALIDATORS.put(OMNI_FAST_BATTERY_LIGHT_COLOR, OMNI_FAST_BATTERY_LIGHT_COLOR_VALIDATOR);
+            VALIDATORS.put(OMNI_FAST_CHARGING_LED_ENABLED, OMNI_FAST_CHARGING_LED_ENABLED_VALIDATOR);
+            VALIDATORS.put(OMNI_BATTERY_LIGHT_ONLY_FULLY_CHARGED, OMNI_BATTERY_LIGHT_ONLY_FULLY_CHARGED_VALIDATOR);
         }
 
         /**
