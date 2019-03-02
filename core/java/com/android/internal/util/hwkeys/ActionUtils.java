@@ -830,6 +830,18 @@ public final class ActionUtils {
         am.adjustVolume(AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
     }
 
+
+    public static void sendSystemKeyToStatusBar(int keyCode) {
+        IStatusBarService service = getStatusBarService();
+        if (service != null) {
+            try {
+                service.handleSystemKey(keyCode);
+            } catch (RemoteException e) {
+                // do nothing.
+            }
+        }
+    }
+
     // Toggle flashlight
     public static void toggleCameraFlash() {
         IStatusBarService service = getStatusBarService();
