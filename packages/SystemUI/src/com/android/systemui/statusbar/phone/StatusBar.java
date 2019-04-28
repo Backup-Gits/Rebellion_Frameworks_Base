@@ -5142,6 +5142,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_TICKER_TICK_DURATION),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.LOCKSCREEN_DATE_SELECTION),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -5164,7 +5167,8 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.FORCE_SHOW_NAVBAR))) {
                 updateNavigationBarVisibility();
-            } else if (uri.equals(Settings.Secure.getUriFor(Settings.Secure.LOCKSCREEN_CLOCK_SELECTION))) {
+            } else if (uri.equals(Settings.Secure.getUriFor(Settings.Secure.LOCKSCREEN_CLOCK_SELECTION)) ||
+                    uri.equals(Settings.Secure.getUriFor(Settings.Secure.LOCKSCREEN_DATE_SELECTION))) {
                 updateKeyguardStatusSettings();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_CHARGING_ANIMATION))) {
