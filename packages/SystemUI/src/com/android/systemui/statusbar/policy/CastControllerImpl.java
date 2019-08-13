@@ -48,6 +48,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 
+import com.android.internal.custom.screenshot.StitchImageUtility;
+
 /** Platform implementation of the cast controller. **/
 @Singleton
 public class CastControllerImpl implements CastController {
@@ -185,6 +187,10 @@ public class CastControllerImpl implements CastController {
                 device.state = CastDevice.STATE_CONNECTED;
                 device.tag = mProjection;
                 devices.add(device);
+            if (mProjection != null && mProjection.getPackageName().equals(
+                    StitchImageUtility.STITCHIMAGE_APP_PACKAGE_NAME)){
+                mProjection = null;
+            }
             }
         }
 
