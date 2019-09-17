@@ -153,7 +153,10 @@
     <!-- Default value for led color when fast charging is active -->
     <integer name="config_notificationsFastBatteryARGB">0xFF0000FF</integer>
 
-    <!-- Smart charging battery percentage -->
+    <!-- Smart charging -->
     <integer name="config_smartChargingBatteryLevel">80</integer>
+    <string name="config_SmartChargingSysfsNode" translatable="false">/sys/class/power_supply/battery/charging_enabled</string>
+    <string name="config_SmartChargingSupspendValue" translatable="false">0</string>
+    <string name="config_SmartChargingResumeValue" translatable="false">1</string>
 
 </resources>
