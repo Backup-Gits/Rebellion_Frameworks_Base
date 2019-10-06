@@ -176,4 +176,7 @@
     <string name="navbar_editor_title">Editor</string>
     <string name="navbar_editor_summary">Configure navigaton bar</string>
 
+    <!-- Navbar -->
+    <string name="navigation_bar_format_title">Navbar format</string>
+
 </resources>
