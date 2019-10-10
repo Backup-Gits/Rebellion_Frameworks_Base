@@ -5966,6 +5966,12 @@ public final class Settings {
         public static final Validator POCKET_JUDGE_VALIDATOR = BOOLEAN_VALIDATOR;
 
         /**
+         * Use doubletap as doze pulse triggers
+         * @hide
+         */
+        public static final String DOZE_TRIGGER_DOUBLETAP = "doze_trigger_doubletap";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
