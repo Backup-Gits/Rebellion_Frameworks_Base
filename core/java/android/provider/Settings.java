@@ -5878,6 +5878,30 @@ public final class Settings {
         private static final Validator PULSE_AMBIENT_LIGHT_RIGHT_DURATION_VALIDATOR = ANY_INTEGER_VALIDATOR;
 
         /**
+         * Whether to enable Ambient Edge lights
+         * @hide
+         */
+        public static final String AMBIENT_NOTIFICATION_LIGHT_ENABLED = "ambient_notification_light_enabled";
+
+        private static final Validator AMBIENT_NOTIFICATION_LIGHT_ENABLED_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * Whether to enable Ambient Edge lights
+         * @hide
+         */
+        public static final String AMBIENT_NOTIFICATION_LIGHT = "ambient_notification_light";
+
+        private static final Validator AMBIENT_NOTIFICATION_LIGHT_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * Whether Ambient Edge lights are activated
+         * @hide
+         */
+        public static final String AMBIENT_NOTIFICATION_LIGHT_ACTIVATED = "ambient_notification_light_activated";
+
+        private static final Validator AMBIENT_NOTIFICATION_LIGHT_ACTIVATED_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5994,6 +6018,9 @@ public final class Settings {
             PULSE_AMBIENT_LIGHT_AUTO_COLOR_RIGHT,
             PULSE_AMBIENT_LIGHT_COLOR_RIGHT,
             PULSE_AMBIENT_LIGHT_RIGHT_DURATION,
+            AMBIENT_NOTIFICATION_LIGHT,
+            AMBIENT_NOTIFICATION_LIGHT_ACTIVATED,
+            AMBIENT_NOTIFICATION_LIGHT_ENABLED,
         };
 
         /**
@@ -6185,6 +6212,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_AUTO_COLOR_RIGHT);
             PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_COLOR_RIGHT);
             PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_RIGHT_DURATION);
+            PRIVATE_SETTINGS.add(AMBIENT_NOTIFICATION_LIGHT_ENABLED);
         }
 
         /**
@@ -6333,6 +6361,9 @@ public final class Settings {
             VALIDATORS.put(PULSE_AMBIENT_LIGHT_AUTO_COLOR_RIGHT, PULSE_AMBIENT_LIGHT_AUTO_COLOR_RIGHT_VALIDATOR);
             VALIDATORS.put(PULSE_AMBIENT_LIGHT_COLOR_RIGHT, PULSE_AMBIENT_LIGHT_COLOR_RIGHT_VALIDATOR);
             VALIDATORS.put(PULSE_AMBIENT_LIGHT_RIGHT_DURATION, PULSE_AMBIENT_LIGHT_RIGHT_DURATION_VALIDATOR);
+            VALIDATORS.put(AMBIENT_NOTIFICATION_LIGHT, AMBIENT_NOTIFICATION_LIGHT_VALIDATOR);
+            VALIDATORS.put(AMBIENT_NOTIFICATION_LIGHT_ACTIVATED, AMBIENT_NOTIFICATION_LIGHT_ACTIVATED_VALIDATOR);
+            VALIDATORS.put(AMBIENT_NOTIFICATION_LIGHT_ENABLED, AMBIENT_NOTIFICATION_LIGHT_ENABLED_VALIDATOR);
         }
 
         /**
