@@ -4251,7 +4251,8 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateIsKeyguard();
         }
     };
-    private void setQsColumns() {
+
+    private void setQsRowsColumns() {
         if (mQSPanel != null) {
             mQSPanel.updateResources();
             mQSPanel.updateSettings();
@@ -4857,6 +4858,12 @@ public class StatusBar extends SystemUI implements DemoMode,
                     Settings.System.QS_QUICKBAR_COLUMNS),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_LAYOUT_ROWS),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_LAYOUT_ROWS_LANDSCAPE),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.QS_TILE_TITLE_VISIBILITY),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
@@ -4932,7 +4939,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             setScreenBrightnessMode();
             setUseLessBoringHeadsUp();
             setGamingMode();
-            setQsColumns();
+            setQsRowsColumns();
             setLockScreenMediaBlurLevel();
             setPulseOnNewTracks();
             updateNavigationBarVisibility();
