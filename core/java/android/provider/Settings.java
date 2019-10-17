@@ -4734,6 +4734,16 @@ public final class Settings {
          */
         public static final String QS_RUNNING_SERVICES_TOGGLE = "qs_running_services_toggle";
 
+
+        /**
+         * Whether footer #IAmARebel text shows
+         * @hide
+         */
+        public static final String FOOTER_TEXT_SHOW = "footer_text_show";
+         /** @hide */
+        private static final Validator FOOTER_TEXT_SHOW_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
         /**
          * Whether to show or hide the edit icon
          * @hide
