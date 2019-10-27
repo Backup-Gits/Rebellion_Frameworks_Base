@@ -32,4 +32,6 @@
     <!-- QS tile title -->
     <dimen name="qs_tile_height_wo_label">48dp</dimen>
 
+    <!-- QS system info -->
+    <dimen name="qs_temperatur_icon_size">16sp</dimen>
 </resources>
