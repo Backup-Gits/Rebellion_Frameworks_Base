@@ -283,4 +283,7 @@
     <string name="recents_app_killed">App killed</string>
     <string name="nope_cant_kill">Launcher cannot be killed</string>
 
+    <!-- Screenrecord UI -->
+    <string name="screenrecord_stopdot_label">Show stop dot</string>
+
 </resources>
