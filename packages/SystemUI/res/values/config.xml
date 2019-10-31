@@ -117,7 +117,7 @@
 
     <!-- Tiles native to System UI. Order should match "quick_settings_tiles_default" -->
     <string name="quick_settings_tiles_stock" translatable="false">
-        aod,adb_network,wifi,cell,battery,dnd,flashlight,rotation,bt,airplane,nfc,location,hotspot,gaming,reboot,dataswitch,onthego,cpuinfo,fpsinfo,lte,music,smartpixels,soundsearch,compass,weather,inversion,saver,dark,work,cast,night,caffeine,ambient_display,usb_tether,sync,sound,screenshot,heads_up,screenstabilization
+        aod,adb_network,wifi,cell,battery,dnd,flashlight,rotation,bt,airplane,nfc,location,hotspot,gaming,reboot,dataswitch,onthego,,screenrecord,cpuinfo,fpsinfo,lte,music,smartpixels,soundsearch,compass,weather,inversion,saver,dark,work,cast,night,caffeine,ambient_display,usb_tether,sync,sound,screenshot,heads_up,screenstabilization
     </string>
 
     <!-- The tiles to display in QuickSettings -->
@@ -484,6 +484,7 @@
     <!-- Whether to show VoLTE icon in the status bar -->
     <bool name="config_display_volte">true</bool>
 
+<<<<<<< HEAD
     <!-- FPSInfoService FPS node file path -->
     <string name="config_fpsInfoSysNode" translatable="false"></string>
 
@@ -492,3 +493,6 @@
     <integer name="quick_settings_onthego_dialog_long_timeout">6000</integer>
 
 </resources>
+=======
+</resources>
+>>>>>>> aa53cc72e92... SystemUI: Add ScreenRecord Tile
