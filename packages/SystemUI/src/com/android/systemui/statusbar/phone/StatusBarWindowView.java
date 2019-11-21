@@ -119,6 +119,7 @@ public class StatusBarWindowView extends FrameLayout implements Tunable {
 
     // omni additions start
     private boolean mDoubleTapEnabledNative;
+    private boolean mDoubleTapDozeEnabled;
 
     private final GestureDetector.SimpleOnGestureListener mGestureListener =
             new GestureDetector.SimpleOnGestureListener() {
@@ -138,7 +139,7 @@ public class StatusBarWindowView extends FrameLayout implements Tunable {
                 mService.handleSystemKey(KeyEvent.KEYCODE_MEDIA_NEXT);
                 return true;
             }
-            if (mDoubleTapEnabled || mSingleTapEnabled || mDoubleTapEnabledNative) {
+            if (mDoubleTapEnabled || mSingleTapEnabled || mDoubleTapEnabledNative || mDoubleTapDozeEnabled) {
                 mService.wakeUpIfDozing(SystemClock.uptimeMillis(), StatusBarWindowView.this,
                         "DOUBLE_TAP");
                 return true;
@@ -158,6 +159,10 @@ public class StatusBarWindowView extends FrameLayout implements Tunable {
             case Settings.Secure.DOUBLE_TAP_TO_WAKE:
                 mDoubleTapEnabledNative = Settings.Secure.getIntForUser(mContext.getContentResolver(),
                         Settings.Secure.DOUBLE_TAP_TO_WAKE, 0, UserHandle.USER_CURRENT) == 1;
+                break;
+            case Settings.System.DOZE_TRIGGER_DOUBLETAP:
+                mDoubleTapDozeEnabled = Settings.System.getInt(mContext.getContentResolver(),
+                        Settings.System.DOZE_TRIGGER_DOUBLETAP, 0) == 1;
                 break;
         }
     };
@@ -190,7 +195,8 @@ public class StatusBarWindowView extends FrameLayout implements Tunable {
         Dependency.get(TunerService.class).addTunable(mTunable,
                 Settings.Secure.DOZE_DOUBLE_TAP_GESTURE,
                 Settings.Secure.DOZE_TAP_SCREEN_GESTURE,
-                Settings.Secure.DOUBLE_TAP_TO_WAKE);
+                Settings.Secure.DOUBLE_TAP_TO_WAKE,
+                Settings.System.DOZE_TRIGGER_DOUBLETAP);
     }
 
     @Override
