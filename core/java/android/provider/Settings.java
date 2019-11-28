@@ -4745,6 +4745,12 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
+         * QS footer text
+         * @hide
+         */
+        public static final String REBELLION_FOOTER_TEXT_STRING = "rebellion_footer_text_string";
+
+        /**
          * Whether to show or hide the edit icon
          * @hide
          */
