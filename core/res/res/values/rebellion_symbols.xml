@@ -107,4 +107,17 @@
     <!-- Themes -->
     <java-symbol type="color" name="theme_generic_semi_transparent_color" />
 
+  <!-- For Extended Privacy Type -->
+  <java-symbol type="drawable" name="perm_group_activity_recognition" />
+  <java-symbol type="drawable" name="perm_group_aural" />
+  <java-symbol type="drawable" name="perm_group_calendar" />
+  <java-symbol type="drawable" name="perm_group_call_log" />
+  <java-symbol type="drawable" name="perm_group_contacts" />
+  <java-symbol type="drawable" name="perm_group_phone_calls" />
+  <java-symbol type="drawable" name="perm_group_privacy" />
+  <java-symbol type="drawable" name="perm_group_sensors" />
+  <java-symbol type="drawable" name="perm_group_sms" />
+  <java-symbol type="drawable" name="perm_group_storage" />
+  <java-symbol type="drawable" name="perm_group_visual" />
+
 </resources>
