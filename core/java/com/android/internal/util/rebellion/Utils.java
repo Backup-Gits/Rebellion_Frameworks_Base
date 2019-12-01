@@ -160,7 +160,7 @@ public class Utils {
         FireActions.toggleCameraFlash();
     }
 
-    public static void sendKeycode(int keycode) {
+        public static void sendKeycode(int keycode) {
         long when = SystemClock.uptimeMillis();
         final KeyEvent evDown = new KeyEvent(when, when, KeyEvent.ACTION_DOWN, keycode, 0,
                 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
@@ -199,6 +199,10 @@ public class Utils {
         }
     }
 
+    public static void setPartialScreenshot(boolean active) {
+        FireActions.setPartialScreenshot(active);
+    }
+
     public static boolean deviceHasCompass(Context ctx) {
         SensorManager sm = (SensorManager) ctx.getSystemService(Context.SENSOR_SERVICE);
         return sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null
@@ -225,6 +229,15 @@ public class Utils {
                 } catch (RemoteException e) {
                     // do nothing.
                 }
+            }
+        }
+
+        public static void setPartialScreenshot(boolean active) {
+            IStatusBarService service = getStatusBarService();
+            if (service != null) {
+                try {
+                    service.setPartialScreenshot(active);
+                } catch (RemoteException e) {}
             }
         }
     }

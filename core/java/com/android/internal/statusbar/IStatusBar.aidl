@@ -182,4 +182,9 @@ oneway interface IStatusBar
     void toggleCameraFlash();
     void toggleCameraFlashState(boolean enable);
 
+    /**
+     * Notifies System UI whether we are showing partial screenshot view or not.
+     */
+    void setPartialScreenshot(boolean active);
+
 }

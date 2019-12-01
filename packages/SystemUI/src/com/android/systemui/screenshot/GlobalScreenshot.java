@@ -98,6 +98,7 @@ import android.widget.Toast;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.config.sysui.SystemUiDeviceConfigFlags;
 import com.android.internal.messages.nano.SystemMessageProto.SystemMessage;
+import com.android.internal.util.rebellion.Utils;
 import com.android.systemui.R;
 import com.android.systemui.SysUiServiceProvider;
 import com.android.systemui.SystemUI;
@@ -816,7 +817,7 @@ class GlobalScreenshot {
             @Override
             public void onClick(View v) {
                 mScreenshotLayout.post(() -> {
-                    finisher.run();
+                    finisher.accept(null);
                     hideScreenshotSelector();
                 });
             }
@@ -849,6 +850,7 @@ class GlobalScreenshot {
     }
 
     void hideScreenshotSelector() {
+        Utils.setPartialScreenshot(false);
         mWindowManager.removeView(mScreenshotLayout);
         mScreenshotSelectorView.stopSelection();
         mScreenshotSelectorView.setVisibility(View.GONE);
@@ -867,6 +869,9 @@ class GlobalScreenshot {
             } catch (IllegalArgumentException ignored) {
             }
         }
+
+        // called when unbinding screenshot service
+        Utils.setPartialScreenshot(false);
     }
 
     /**
@@ -894,6 +899,7 @@ class GlobalScreenshot {
         }
 
         mWindowManager.addView(mScreenshotLayout, mWindowLayoutParams);
+        Utils.setPartialScreenshot(true);
         ValueAnimator screenshotDropInAnim = createScreenshotDropInAnimation();
         ValueAnimator screenshotFadeOutAnim = createScreenshotDropOutAnimation(w, h,
                 statusBarVisible, navBarVisible);
