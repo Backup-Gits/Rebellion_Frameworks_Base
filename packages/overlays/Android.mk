@@ -38,13 +38,17 @@ LOCAL_REQUIRED_MODULES := \
 	IconShapeRoundedRectOverlay \
 	IconShapeSquircleOverlay \
 	IconShapeTeardropOverlay \
+	PrimaryColorBlackOverlay \
 	NavigationBarMode3ButtonOverlay \
 	NavigationBarMode2ButtonOverlay \
 	NavigationBarModeGesturalOverlay \
 	NavigationBarModeGesturalOverlayNarrowBack \
 	NavigationBarModeGesturalOverlayWideBack \
 	NavigationBarModeGesturalOverlayExtraWideBack \
-	PrimaryColorBlackOverlay
+	NavigationBarModeGesturalOverlayNoPill \
+	NavigationBarModeGesturalOverlayNarrowBackNoPill \
+	NavigationBarModeGesturalOverlayWideBackNoPill \
+	NavigationBarModeGesturalOverlayExtraWideBackNoPill
 
 include $(BUILD_PHONY_PACKAGE)
 include $(CLEAR_VARS)
