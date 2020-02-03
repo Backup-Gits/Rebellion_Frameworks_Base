@@ -5917,6 +5917,15 @@ public final class Settings {
         private static final Validator AMBIENT_NOTIFICATION_LIGHT_HIDE_AOD_VALIDATOR = BOOLEAN_VALIDATOR;
 
         /**
+         * Wether to show edge light for all doze events
+         * @hide
+         */
+        public static final String PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL = "pulse_ambient_light_pulse_for_all";
+
+        /** @hide */
+        private static final Validator PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -6037,6 +6046,7 @@ public final class Settings {
             AMBIENT_NOTIFICATION_LIGHT_ACTIVATED,
             AMBIENT_NOTIFICATION_LIGHT_ENABLED,
             AMBIENT_NOTIFICATION_LIGHT_HIDE_AOD,
+            PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL,
         };
 
         /**
@@ -6229,6 +6239,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_COLOR_RIGHT);
             PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_RIGHT_DURATION);
             PRIVATE_SETTINGS.add(AMBIENT_NOTIFICATION_LIGHT_ENABLED);
+            PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL);
         }
 
         /**
@@ -6381,6 +6392,7 @@ public final class Settings {
             VALIDATORS.put(AMBIENT_NOTIFICATION_LIGHT_ACTIVATED, AMBIENT_NOTIFICATION_LIGHT_ACTIVATED_VALIDATOR);
             VALIDATORS.put(AMBIENT_NOTIFICATION_LIGHT_ENABLED, AMBIENT_NOTIFICATION_LIGHT_ENABLED_VALIDATOR);
             VALIDATORS.put(AMBIENT_NOTIFICATION_LIGHT_HIDE_AOD, AMBIENT_NOTIFICATION_LIGHT_HIDE_AOD_VALIDATOR);
+            VALIDATORS.put(PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL, PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL_VALIDATOR);
         }
 
         /**
