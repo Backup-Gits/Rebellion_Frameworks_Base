@@ -548,7 +548,8 @@ public class NotificationStackScrollLayout extends ViewGroup implements ScrollAd
         mSectionsManager.setOnClearGentleNotifsClickListener(v -> {
             // Leave the shade open if there will be other notifs left over to clear
             final boolean closeShade = !hasActiveClearableNotifications(ROWS_HIGH_PRIORITY);
-            clearNotifications(ROWS_GENTLE, closeShade);
+            final boolean forceToLeft = !hasActiveClearableNotifications(ROWS_HIGH_PRIORITY);
+            clearNotifications(ROWS_GENTLE, closeShade, forceToLeft);
         });
 
         mAmbientState = new AmbientState(context, mSectionsManager, mHeadsUpManager);
@@ -706,7 +707,7 @@ public class NotificationStackScrollLayout extends ViewGroup implements ScrollAd
         if (needsColorRefresh) {
             mBackgroundColor = mContext.getColor(R.color.recents_dismiss_all_background_color);
             mIconColor = mContext.getColor(R.color.recents_dismiss_all_icon_color);
-            StatusBar.updateDismissAllButton(mBackgroundColor, mIconColor);
+            StatusBar.updateDismissAllButton(mIconColor);
             needsColorRefresh = false;
         }
     }
@@ -797,8 +798,7 @@ public class NotificationStackScrollLayout extends ViewGroup implements ScrollAd
         updateBackgroundDimming();
         mShelf.onUiModeChanged();
         mSectionsManager.onUiModeChanged();
-        StatusBarWindowView.updateDismissAllButton(mBackgroundColor, mIconColor);
-        StatusBar.updateDismissAllButton(mBackgroundColor, mIconColor);
+        StatusBar.updateDismissAllButton(mIconColor);
     }
 
     @ShadeViewRefactor(RefactorComponent.DECORATOR)
