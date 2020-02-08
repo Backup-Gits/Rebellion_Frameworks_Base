@@ -113,6 +113,7 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<FPSInfoTile> mFPSInfoTileProvider;
     private final Provider<AODTile> mAODTileProvider;
     private final Provider<CPUInfoTile> mCPUInfoTileProvider;
+    private final Provider<ScreenStabilizationTile> mScreenStabilizationTileProvider;
 
     private QSTileHost mHost;
 
@@ -151,7 +152,8 @@ public class QSFactoryImpl implements QSFactory {
             Provider<AdbOverNetworkTile> adbOverNetworkProvider,
             Provider<AODTile> aodTileProvider,
             Provider<FPSInfoTile> fpsInfoTileProvider,
-            Provider<CPUInfoTile> cpuInfoTileProvider) {
+            Provider<CPUInfoTile> cpuInfoTileProvider,
+            Provider<ScreenStabilizationTile> screenStabilizationTileProvider) {
         mWifiTileProvider = wifiTileProvider;
         mBluetoothTileProvider = bluetoothTileProvider;
         mCellularTileProvider = cellularTileProvider;
@@ -187,6 +189,7 @@ public class QSFactoryImpl implements QSFactory {
         mAODTileProvider = aodTileProvider;
         mFPSInfoTileProvider = fpsInfoTileProvider;
         mCPUInfoTileProvider = cpuInfoTileProvider;
+        mScreenStabilizationTileProvider = screenStabilizationTileProvider;
     }
 
     public void setHost(QSTileHost host) {
@@ -283,7 +286,7 @@ public class QSFactoryImpl implements QSFactory {
             case "cpuinfo":
                 return mCPUInfoTileProvider.get();
 	    case "screenstabilization":
-		return new ScreenStabilizationTile(mHost);
+		return mScreenStabilizationTileProvider.get();
         }
 
         // Intent tiles.
