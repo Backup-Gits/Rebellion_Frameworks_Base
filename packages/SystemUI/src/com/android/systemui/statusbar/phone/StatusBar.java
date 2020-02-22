@@ -4218,6 +4218,12 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     }
 
+    private void setHapticFeedbackForBackGesture() {
+        if (getNavigationBarView() != null) {
+            getNavigationBarView().updateBackGestureHaptic();
+        }
+    }
+
     public int getWakefulnessState() {
         return mWakefulnessLifecycle.getWakefulness();
     }
@@ -4813,6 +4819,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.SHOW_BACK_ARROW_GESTURE),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.BACK_GESTURE_HAPTIC),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -4856,6 +4865,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateNavigationBarVisibility();
             updateKeyguardStatusSettings();
             setHideArrowForBackGesture();
+            setHapticFeedbackForBackGesture();
         }
     }
 

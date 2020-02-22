@@ -248,6 +248,12 @@ public class EdgeBackGestureHandler implements DisplayListener {
         }
     }
 
+    public void setStateForBackGestureHaptic() {
+        if (mEdgePanel != null) {
+            mEdgePanel.setBackGestureHaptic();
+        }
+    }
+
     public void onSettingsChanged() {
         updateEdgeHeightValue();
     }
