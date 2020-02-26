@@ -244,4 +244,9 @@
     <!-- AOD QS tile -->
     <string name="quick_settings_aod_label">AOD</string>
 
+    <!-- FPS Info tile -->
+    <string name="quick_settings_fpsinfo_label">FPS Info</string>
+    <string name="accessibility_quick_settings_fpsinfo_off">FPS Info off</string>
+    <string name="accessibility_quick_settings_fpsinfo_on">FPS Info on</string>
+
 </resources>
