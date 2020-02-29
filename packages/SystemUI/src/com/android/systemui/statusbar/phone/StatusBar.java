@@ -4517,6 +4517,12 @@ public class StatusBar extends SystemUI implements DemoMode,
                  Settings.System.LOCKSCREEN_MAX_NOTIF_CONFIG, 3, UserHandle.USER_CURRENT);
     }
 
+    private void setGestureNavOptions() {
+        if (getNavigationBarView() != null) {
+            getNavigationBarView().setLongSwipeOptions();
+        }
+    }
+
     public int getWakefulnessState() {
         return mWakefulnessLifecycle.getWakefulness();
     }
@@ -5148,6 +5154,15 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.CENTER_TEXT_CLOCK),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LONG_BACK_SWIPE_TIMEOUT),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LEFT_LONG_BACK_SWIPE_ACTION),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.RIGHT_LONG_BACK_SWIPE_ACTION),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -5202,6 +5217,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateChargingAnimation();
             updateTickerAnimation();
             updateTickerTickDuration();
+            setGestureNavOptions();
         }
     }
 
