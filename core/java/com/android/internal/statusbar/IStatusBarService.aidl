@@ -126,4 +126,5 @@ interface IStatusBarService
     void startAssist(in Bundle args);
     void toggleCameraFlashState(boolean enable);
     void setPartialScreenshot(boolean active);
+    void killForegroundApp();
 }

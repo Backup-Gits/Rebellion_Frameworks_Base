@@ -121,6 +121,7 @@ public class CommandQueue extends IStatusBar.Stub implements CallbackController<
     private static final int MSG_HIDE_IN_DISPLAY_FINGERPRINT_VIEW = 50 << MSG_SHIFT;
     private static final int MSG_TOGGLE_CAMERA_FLASH_STATE     = 59 << MSG_SHIFT;
     private static final int MSG_PARTIAL_SCREENSHOT_ACTIVE     = 51 << MSG_SHIFT;
+    private static final int MSG_KILL_FOREGROUND_APP           = 54 << MSG_SHIFT;
 
     public static final int FLAG_EXCLUDE_NONE = 0;
     public static final int FLAG_EXCLUDE_SEARCH_PANEL = 1 << 0;
@@ -306,6 +307,7 @@ public class CommandQueue extends IStatusBar.Stub implements CallbackController<
          * @see IStatusBar#setPartialScreenshot(boolean)
          */
         default void setPartialScreenshot(boolean active) { }
+        default void killForegroundApp() { }
     }
 
     @VisibleForTesting
@@ -874,6 +876,13 @@ public class CommandQueue extends IStatusBar.Stub implements CallbackController<
         synchronized (mLock) {
             mHandler.removeMessages(MSG_PARTIAL_SCREENSHOT_ACTIVE);
             mHandler.obtainMessage(MSG_PARTIAL_SCREENSHOT_ACTIVE, active).sendToTarget();
+       }
+    }
+
+    public void killForegroundApp() {
+        synchronized (mLock) {
+            mHandler.removeMessages(MSG_KILL_FOREGROUND_APP);
+            mHandler.sendEmptyMessage(MSG_KILL_FOREGROUND_APP);
         }
     }
 
@@ -1165,6 +1174,11 @@ public class CommandQueue extends IStatusBar.Stub implements CallbackController<
                 case MSG_PARTIAL_SCREENSHOT_ACTIVE:
                     for (int i = 0; i < mCallbacks.size(); i++) {
                         mCallbacks.get(i).setPartialScreenshot((Boolean) msg.obj);
+                    }
+                    break;
+                case MSG_KILL_FOREGROUND_APP:
+                    for (int i = 0; i < mCallbacks.size(); i++) {
+                        mCallbacks.get(i).killForegroundApp();
                     }
                     break;
             }

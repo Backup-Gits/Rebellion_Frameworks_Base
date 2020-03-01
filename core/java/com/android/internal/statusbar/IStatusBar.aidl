@@ -186,5 +186,5 @@ oneway interface IStatusBar
      * Notifies System UI whether we are showing partial screenshot view or not.
      */
     void setPartialScreenshot(boolean active);
-
+    void killForegroundApp();
 }
