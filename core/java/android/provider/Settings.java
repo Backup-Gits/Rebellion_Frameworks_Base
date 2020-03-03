@@ -6533,6 +6533,15 @@ public final class Settings {
         public static final String BACK_SWIPE_TYPE = "back_swipe_type";
 
         /**
+         * Width of the navigation handle.
+         * @hide
+         */
+        public static final String NAVIGATION_HANDLE_WIDTH = "navigation_handle_width";
+
+        /** @hide */
+        private static final Validator NAVIGATION_HANDLE_WIDTH_VALIDATOR = ANY_INTEGER_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -6674,7 +6683,8 @@ public final class Settings {
             TRANSPARENT_POWER_DIALOG_DIM,
             STATUS_BAR_SHOW_TICKER,
             STATUS_BAR_TICKER_ANIMATION_MODE,
-            STATUS_BAR_TICKER_TICK_DURATION
+            STATUS_BAR_TICKER_TICK_DURATION,
+            NAVIGATION_HANDLE_WIDTH,
         };
 
         /**
@@ -6888,6 +6898,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(STATUS_BAR_SHOW_TICKER);
             PRIVATE_SETTINGS.add(STATUS_BAR_TICKER_ANIMATION_MODE);
             PRIVATE_SETTINGS.add(STATUS_BAR_TICKER_TICK_DURATION);
+            PRIVATE_SETTINGS.add(NAVIGATION_HANDLE_WIDTH);
         }
 
         /**
@@ -7067,6 +7078,7 @@ public final class Settings {
                     STATUS_BAR_TICKER_ANIMATION_MODE_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_TICKER_TICK_DURATION,
                     STATUS_BAR_TICKER_TICK_DURATION_VALIDATOR);
+            VALIDATORS.put(NAVIGATION_HANDLE_WIDTH, NAVIGATION_HANDLE_WIDTH_VALIDATOR);
         }
 
         /**
