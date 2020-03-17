@@ -37,18 +37,12 @@ import android.content.IntentFilter;
 import android.content.pm.UserInfo;
 import android.database.ContentObserver;
 import android.graphics.drawable.Drawable;
-import android.hardware.camera2.CameraManager;
-import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CameraAccessException;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.os.Messenger;
-import android.os.PowerManager;
-import android.os.Process;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemProperties;
@@ -143,8 +137,6 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
     private static final String GLOBAL_ACTION_KEY_LOGOUT = "logout";
     private static final String GLOBAL_ACTION_KEY_EMERGENCY = "emergency";
     private static final String GLOBAL_ACTION_KEY_SCREENSHOT = "screenshot";
-    private static final String GLOBAL_ACTION_KEY_RESTART_RECOVERY = "recovery";
-    private static final String GLOBAL_ACTION_KEY_TORCH = "torch";
 
     private final Context mContext;
     private final GlobalActionsManager mWindowManagerFuncs;
@@ -176,7 +168,6 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
     private final ScreenRecordHelper mScreenRecordHelper;
     private final ActivityStarter mActivityStarter;
     private GlobalActionsPanelPlugin mPanelPlugin;
-    private boolean mTorchEnabled = false;
 
     /**
      * @param context everything needs a context :(
@@ -364,63 +355,41 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                 continue;
             }
             if (GLOBAL_ACTION_KEY_POWER.equals(actionKey)) {
-                if (Settings.System.getInt(mContext.getContentResolver(),
-                        Settings.System.POWERMENU_POWER, 1) == 1) {
-                    mItems.add(new PowerAction());
-                }
+                mItems.add(new PowerAction());
             } else if (GLOBAL_ACTION_KEY_AIRPLANE.equals(actionKey)) {
-                if (Settings.System.getInt(mContext.getContentResolver(),
-                        Settings.System.POWERMENU_AIRPLANE, 0) == 1) {
-                    mItems.add(mAirplaneModeOn);
-                }
+                mItems.add(mAirplaneModeOn);
             } else if (GLOBAL_ACTION_KEY_BUGREPORT.equals(actionKey)) {
                 if (Settings.Global.getInt(mContext.getContentResolver(),
                         Settings.Global.BUGREPORT_IN_POWER_MENU, 0) != 0 && isCurrentUserOwner()) {
                     mItems.add(new BugReportAction());
                 }
             } else if (GLOBAL_ACTION_KEY_SILENT.equals(actionKey)) {
-                if (Settings.System.getInt(mContext.getContentResolver(),
-                        Settings.System.POWERMENU_SOUNDPANEL, 0) == 1) {
+                if (mShowSilentToggle) {
                     mItems.add(mSilentModeAction);
                 }
             } else if (GLOBAL_ACTION_KEY_USERS.equals(actionKey)) {
-                if (Settings.System.getInt(mContext.getContentResolver(),
-                        Settings.System.POWERMENU_USERS, 0) == 1) {
+                if (SystemProperties.getBoolean("fw.power_user_switcher", false)) {
                     addUsersToMenu(mItems);
                 }
             } else if (GLOBAL_ACTION_KEY_SETTINGS.equals(actionKey)) {
-                if (Settings.System.getInt(mContext.getContentResolver(),
-                        Settings.System.POWERMENU_SETTINGS, 0) != 0) {
-                    mItems.add(getSettingsAction());
-                }
+                mItems.add(getSettingsAction());
             } else if (GLOBAL_ACTION_KEY_LOCKDOWN.equals(actionKey)) {
-                if (Settings.System.getInt(mContext.getContentResolver(),
-                        Settings.System.POWERMENU_LOCKDOWN, 0) != 0) {
+                if (Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                            Settings.Secure.LOCKDOWN_IN_POWER_MENU, 0, getCurrentUser().id) != 0
+                        && shouldDisplayLockdown()) {
                     mItems.add(getLockdownAction());
                     mHasLockdownButton = true;
-                }
-            } else if (GLOBAL_ACTION_KEY_TORCH.equals(actionKey)) {
-                if (Settings.System.getInt(mContext.getContentResolver(),
-                        Settings.System.POWERMENU_TORCH, 0) != 0) {
-                    mItems.add(getTorchToggleAction());
                 }
             } else if (GLOBAL_ACTION_KEY_VOICEASSIST.equals(actionKey)) {
                 mItems.add(getVoiceAssistAction());
             } else if (GLOBAL_ACTION_KEY_ASSIST.equals(actionKey)) {
                 mItems.add(getAssistAction());
             } else if (GLOBAL_ACTION_KEY_RESTART.equals(actionKey)) {
-                if (Settings.System.getInt(mContext.getContentResolver(),
-                        Settings.System.POWERMENU_RESTART, 1) == 1) {
-                    mItems.add(new RestartAction());
-                }
+                mItems.add(new RestartAction());
             } else if (GLOBAL_ACTION_KEY_SCREENSHOT.equals(actionKey)) {
-                if (Settings.System.getInt(mContext.getContentResolver(),
-                        Settings.System.POWERMENU_SCREENSHOT, 0) == 1) {
-                    mItems.add(new ScreenshotAction());
-                }
+                mItems.add(new ScreenshotAction());
             } else if (GLOBAL_ACTION_KEY_LOGOUT.equals(actionKey)) {
-                if (Settings.System.getInt(mContext.getContentResolver(),
-                        Settings.System.POWERMENU_LOGOUT, 0) == 1
+                if (mDevicePolicyManager.isLogoutEnabled()
                         && getCurrentUser().id != UserHandle.USER_SYSTEM) {
                     mItems.add(new LogoutAction());
                     mHasLogoutButton = true;
@@ -429,11 +398,6 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                 if (!mEmergencyAffordanceManager.needsEmergencyAffordance()) {
                     mItems.add(new EmergencyDialerAction());
                 }
-            } else if (GLOBAL_ACTION_KEY_RESTART_RECOVERY.equals(actionKey)) {
-                if (Settings.System.getInt(mContext.getContentResolver(),
-                        Settings.System.POWERMENU_RESTART_RECOVERY, 1) == 1) {
-                     mItems.add(new AdvancedRestartAction());
-                }
             } else {
                 Log.e(TAG, "Invalid global action key " + actionKey);
             }
@@ -441,8 +405,7 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
             addedKeys.add(actionKey);
         }
 
-        if (mEmergencyAffordanceManager.needsEmergencyAffordance() && mContext.getResources().getBoolean(
-                com.android.internal.R.bool.config_showEmergencyButtonInPowerMenu)) {
+        if (mEmergencyAffordanceManager.needsEmergencyAffordance()) {
             mItems.add(new EmergencyAffordanceAction());
         }
 
@@ -680,123 +643,6 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
         }
     }
 
-    private final class AdvancedRestartAction extends SinglePressAction {
-        private AdvancedRestartAction() {
-            super(com.android.systemui.R.drawable.ic_restart_advanced, com.android.systemui.R.string.global_action_restart_advanced);
-        }
-
-        @Override
-        public boolean showDuringKeyguard() {
-            return true;
-        }
-
-        @Override
-        public boolean showBeforeProvisioning() {
-            return true;
-        }
-
-        @Override
-        public void onPress() {
-            mHandler.sendEmptyMessage(MESSAGE_SHOW_ADVANCED_TOGGLES);
-        }
-    }
-
-
-    private final class RestartRecoveryAction extends SinglePressAction {
-        private RestartRecoveryAction() {
-            super(com.android.systemui.R.drawable.ic_restart_recovery, com.android.systemui.R.string.global_action_restart_recovery);
-        }
-
-        @Override
-        public boolean showDuringKeyguard() {
-            return true;
-        }
-
-        @Override
-        public boolean showBeforeProvisioning() {
-            return true;
-        }
-
-        @Override
-        public void onPress() {
-            mWindowManagerFuncs.advancedReboot(PowerManager.REBOOT_RECOVERY);
-        }
-    }
-
-    private final class RestartBootloaderAction extends SinglePressAction {
-        private RestartBootloaderAction() {
-            super(com.android.systemui.R.drawable.ic_restart_bootloader, com.android.systemui.R.string.global_action_restart_bootloader);
-        }
-
-        @Override
-        public boolean showDuringKeyguard() {
-            return true;
-        }
-
-        @Override
-        public boolean showBeforeProvisioning() {
-            return true;
-        }
-
-        @Override
-        public void onPress() {
-            mWindowManagerFuncs.advancedReboot(PowerManager.REBOOT_BOOTLOADER);
-        }
-    }
-
-    private final class RestartSystemUIAction extends SinglePressAction {
-        private RestartSystemUIAction() {
-            super(com.android.systemui.R.drawable.ic_restart_ui, com.android.systemui.R.string.global_action_restart_ui);
-        }
-
-        @Override
-        public boolean showDuringKeyguard() {
-            return true;
-        }
-
-        @Override
-        public boolean showBeforeProvisioning() {
-            return true;
-        }
-
-        @Override
-        public void onPress() {
-            mWindowManagerFuncs.onGlobalActionsHidden();
-            restartSystemUI(mContext);
-        }
-    }
-
-    private Action getTorchToggleAction() {
-        return new SinglePressAction(com.android.systemui.R.drawable.ic_lock_torch,
-                com.android.systemui.R.string.quick_settings_flashlight_label) {
-
-            public void onPress() {
-                try {
-                    CameraManager cameraManager = (CameraManager)
-                            mContext.getSystemService(Context.CAMERA_SERVICE);
-                    for (final String cameraId : cameraManager.getCameraIdList()) {
-                        CameraCharacteristics characteristics =
-                            cameraManager.getCameraCharacteristics(cameraId);
-                        int orient = characteristics.get(CameraCharacteristics.LENS_FACING);
-                        if (orient == CameraCharacteristics.LENS_FACING_BACK) {
-                            cameraManager.setTorchMode(cameraId, !mTorchEnabled);
-                            mTorchEnabled = !mTorchEnabled;
-                        }
-                    }
-                } catch (CameraAccessException e) {
-                }
-            }
-
-            public boolean showDuringKeyguard() {
-                return true;
-            }
-
-            public boolean showBeforeProvisioning() {
-                return false;
-            }
-        };
-    }
-
     private class BugReportAction extends SinglePressAction implements LongPressAction {
 
         public BugReportAction() {
@@ -887,7 +733,7 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
     }
 
     private Action getSettingsAction() {
-        return new SinglePressAction(com.android.systemui.R.drawable.ic_lock_settings,
+        return new SinglePressAction(R.drawable.ic_settings,
                 R.string.global_action_settings) {
 
             @Override
@@ -954,7 +800,7 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
     }
 
     private Action getLockdownAction() {
-        return new SinglePressAction(com.android.systemui.R.drawable.ic_lock_lock,
+        return new SinglePressAction(R.drawable.ic_lock_lockdown,
                 R.string.global_action_lockdown) {
 
             @Override
@@ -1604,7 +1450,6 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
     private static final int MESSAGE_DISMISS = 0;
     private static final int MESSAGE_REFRESH = 1;
     private static final int MESSAGE_SHOW = 2;
-    private static final int MESSAGE_SHOW_ADVANCED_TOGGLES = 3;
     private static final int DIALOG_DISMISS_DELAY = 300; // ms
 
     private Handler mHandler = new Handler() {
@@ -1627,22 +1472,9 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                 case MESSAGE_SHOW:
                     handleShow();
                     break;
-                case MESSAGE_SHOW_ADVANCED_TOGGLES:
-                    mDialog.dismiss();
-                    addNewItems();
-                    mDialog.refreshList();
-                    mDialog.show();
-                    break;
             }
         }
     };
-
-    private void addNewItems() {
-            mItems.clear();
-	    mItems.add(new RestartRecoveryAction());
-	    mItems.add(new RestartBootloaderAction());
-	    mItems.add(new RestartSystemUIAction());
-    }
 
     private void onAirplaneModeChanged() {
         // Let the service state callbacks handle the state.
@@ -1722,10 +1554,6 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
 
             mPanelController = plugin;
             initializeLayout();
-        }
-
-        public void refreshList() {
-            mGlobalActionsLayout.updateList();
         }
 
         private boolean shouldUsePanel() {
@@ -2019,9 +1847,5 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
      */
     private static boolean shouldUseSeparatedView() {
         return true;
-    }
-
-    public static void restartSystemUI(Context ctx) {
-        Process.killProcess(Process.myPid());
     }
 }

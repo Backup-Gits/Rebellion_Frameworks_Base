@@ -20,31 +20,23 @@ import static android.app.StatusBarManager.DISABLE_SYSTEM_INFO;
 
 import android.annotation.Nullable;
 import android.app.Fragment;
-import android.database.ContentObserver;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Parcelable;
-import android.os.UserHandle;
-import android.provider.Settings;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
-import android.widget.ImageSwitcher;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.systemui.Dependency;
 import com.android.systemui.Interpolators;
 import com.android.systemui.R;
 import com.android.systemui.SysUiServiceProvider;
-import com.android.systemui.plugins.DarkIconDispatcher;
 import com.android.systemui.plugins.statusbar.StatusBarStateController;
 import com.android.systemui.statusbar.CommandQueue;
 import com.android.systemui.statusbar.StatusBarState;
 import com.android.systemui.statusbar.phone.StatusBarIconController.DarkIconManager;
-import com.android.systemui.statusbar.policy.Clock;
 import com.android.systemui.statusbar.policy.EncryptionHelper;
 import com.android.systemui.statusbar.policy.KeyguardMonitor;
 import com.android.systemui.statusbar.policy.NetworkController;
@@ -68,7 +60,6 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     private KeyguardMonitor mKeyguardMonitor;
     private NetworkController mNetworkController;
     private LinearLayout mSystemIconArea;
-    private LinearLayout mCustomIconArea;
     private View mClockView;
     private View mNotificationIconAreaInner;
     private View mCenteredIconArea;
@@ -77,37 +68,6 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     private DarkIconManager mDarkIconManager;
     private View mOperatorNameFrame;
     private CommandQueue mCommandQueue;
-
-    // AEX Logo
-    private ImageView mAEXLogo;
-    private boolean mShowLogo;
-    private Handler mHandler;
-
-    private View mCustomCarrierLabel;
-    private int mShowCarrierLabel;
-    private boolean mHasCarrierLabel;
-
-    private class SettingsObserver extends ContentObserver {
-        SettingsObserver(Handler handler) {
-            super(handler);
-        }
-
-         void observe() {
-            getContext().getContentResolver().registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_LOGO),
-                    false, this, UserHandle.USER_ALL);
-            getContext().getContentResolver().registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_SHOW_CARRIER),
-                    false, this, UserHandle.USER_ALL);
-        }
-
-         @Override
-        public void onChange(boolean selfChange) {
-            updateSettings(true);
-        }
-    }
-
-    private SettingsObserver mSettingsObserver;
 
     private SignalCallback mSignalCallback = new SignalCallback() {
         @Override
@@ -124,9 +84,6 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         mStatusBarStateController = Dependency.get(StatusBarStateController.class);
         mStatusBarComponent = SysUiServiceProvider.getComponent(getContext(), StatusBar.class);
         mCommandQueue = SysUiServiceProvider.getComponent(getContext(), CommandQueue.class);
-        mHandler = new Handler();
-        mSettingsObserver = new SettingsObserver(mHandler);
-        mSettingsObserver.observe();
     }
 
     @Override
@@ -147,16 +104,11 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         mDarkIconManager.setShouldLog(true);
         Dependency.get(StatusBarIconController.class).addIconGroup(mDarkIconManager);
         mSystemIconArea = mStatusBar.findViewById(R.id.system_icon_area);
-        mCustomIconArea = mStatusBar.findViewById(R.id.left_icon_area);
         mClockView = mStatusBar.findViewById(R.id.clock);
-        mAEXLogo = (ImageView)mStatusBar.findViewById(R.id.status_bar_logo);
-        Dependency.get(DarkIconDispatcher.class).addDarkReceiver(mAEXLogo);
-        mCustomCarrierLabel = mStatusBar.findViewById(R.id.statusbar_carrier_text);
         showSystemIconArea(false);
         showClock(false);
         initEmergencyCryptkeeperText();
         initOperatorName();
-        updateSettings(false);
     }
 
     @Override
@@ -188,7 +140,6 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         if (mNetworkController.hasEmergencyCryptKeeperText()) {
             mNetworkController.removeCallback(mSignalCallback);
         }
-        Dependency.get(DarkIconDispatcher.class).removeDarkReceiver(mAEXLogo);
     }
 
     public void initNotificationIconArea(NotificationIconAreaController
@@ -235,10 +186,8 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         if ((diff1 & DISABLE_NOTIFICATION_ICONS) != 0) {
             if ((state1 & DISABLE_NOTIFICATION_ICONS) != 0) {
                 hideNotificationIconArea(animate);
-                hideCarrierName(animate);
             } else {
                 showNotificationIconArea(animate);
-                showCarrierName(animate);
             }
         }
         // The clock may have already been hidden, but we might want to shift its
@@ -329,19 +278,11 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     public void hideNotificationIconArea(boolean animate) {
         animateHide(mNotificationIconAreaInner, animate);
         animateHide(mCenteredIconArea, animate);
-        if (mShowLogo) {
-            animateHide(mAEXLogo, animate);
-        }
-        animateHide(mCustomIconArea, animate);
     }
 
     public void showNotificationIconArea(boolean animate) {
         animateShow(mNotificationIconAreaInner, animate);
         animateShow(mCenteredIconArea, animate);
-        if (mShowLogo) {
-            animateShow(mAEXLogo, animate);
-        }
-        animateShow(mCustomIconArea, animate);
     }
 
     public void hideOperatorName(boolean animate) {
@@ -356,25 +297,10 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         }
     }
 
-    public void hideCarrierName(boolean animate) {
-        if (mCustomCarrierLabel != null) {
-            animateHiddenState(mCustomCarrierLabel, View.GONE, animate);
-        }
-    }
-
-    public void showCarrierName(boolean animate) {
-        if (mCustomCarrierLabel != null) {
-            setCarrierLabel(animate);
-        }
-    }
-
     /**
      * Animate a view to INVISIBLE or GONE
      */
     private void animateHiddenState(final View v, int state, boolean animate) {
-        if (v instanceof Clock && !((Clock)v).shouldBeVisible()) {
-            return;
-        }
         v.animate().cancel();
         if (!animate) {
             v.setAlpha(0f);
@@ -401,9 +327,6 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
      * Shows a view, and synchronizes the animation with Keyguard exit animations, if applicable.
      */
     private void animateShow(View v, boolean animate) {
-        if (v instanceof Clock && !((Clock)v).shouldBeVisible()) {
-            return;
-        }
         v.animate().cancel();
         v.setVisibility(View.VISIBLE);
         if (!animate) {
@@ -459,33 +382,5 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     @Override
     public void onDozingChanged(boolean isDozing) {
         disable(getContext().getDisplayId(), mDisabled1, mDisabled1, false /* animate */);
-    }
-
-    public void updateSettings(boolean animate) {
-        mShowLogo = Settings.System.getIntForUser(
-                getContext().getContentResolver(), Settings.System.STATUS_BAR_LOGO, 0,
-                UserHandle.USER_CURRENT) == 1;
-        mShowCarrierLabel = Settings.System.getIntForUser(getContext().getContentResolver(),
-                Settings.System.STATUS_BAR_SHOW_CARRIER, 1,
-                UserHandle.USER_CURRENT);
-        mHasCarrierLabel = (mShowCarrierLabel == 2 || mShowCarrierLabel == 3);
-        setCarrierLabel(animate);
-        if (mNotificationIconAreaInner != null) {
-            if (mShowLogo) {
-                if (mNotificationIconAreaInner.getVisibility() == View.VISIBLE) {
-                    animateShow(mAEXLogo, animate);
-                }
-            } else {
-                animateHiddenState(mAEXLogo, View.GONE, animate);
-            }
-      }
-   }
-
-    private void setCarrierLabel(boolean animate) {
-        if (mHasCarrierLabel) {
-            animateShow(mCustomCarrierLabel, animate);
-        } else {
-            animateHiddenState(mCustomCarrierLabel, View.GONE, animate);
-        }
     }
 }

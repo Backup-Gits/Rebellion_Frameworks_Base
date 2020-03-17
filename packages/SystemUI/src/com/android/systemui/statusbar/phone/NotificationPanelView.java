@@ -66,7 +66,7 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.keyguard.KeyguardClockSwitch;
-import com.android.internal.util.aospextended.AEXUtils;
+import com.android.internal.util.rebellion.Utils;
 import com.android.internal.widget.LockPatternUtils;
 import com.android.keyguard.KeyguardStatusView;
 import com.android.keyguard.KeyguardUpdateMonitor;
@@ -506,7 +506,7 @@ public class NotificationPanelView extends PanelView implements
                 new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
-                AEXUtils.switchScreenOff(context);
+                Utils.switchScreenOff(context);
                 return true;
             }
         });

@@ -23,7 +23,6 @@ import android.graphics.Rect;
 import android.view.DisplayCutout;
 import android.view.View;
 import android.view.WindowInsets;
-import android.widget.LinearLayout;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.widget.ViewClippingUtil;
@@ -40,7 +39,6 @@ import com.android.systemui.statusbar.notification.NotificationWakeUpCoordinator
 import com.android.systemui.statusbar.notification.collection.NotificationEntry;
 import com.android.systemui.statusbar.notification.row.ExpandableNotificationRow;
 import com.android.systemui.statusbar.notification.stack.NotificationStackScrollLayout;
-import com.android.systemui.statusbar.policy.Clock;
 import com.android.systemui.statusbar.policy.KeyguardMonitor;
 import com.android.systemui.statusbar.policy.OnHeadsUpChangedListener;
 
@@ -61,8 +59,6 @@ public class HeadsUpAppearanceController implements OnHeadsUpChangedListener,
     private final View mCenteredIconView;
     private final View mClockView;
     private final View mOperatorNameView;
-    private final View mAEXLogoView;
-    private final LinearLayout mCustomIconArea;
     private final DarkIconDispatcher mDarkIconDispatcher;
     private final NotificationPanelView mPanelView;
     private final Consumer<ExpandableNotificationRow>
@@ -110,9 +106,7 @@ public class HeadsUpAppearanceController implements OnHeadsUpChangedListener,
                 statusbarView.findViewById(R.id.notification_panel),
                 statusbarView.findViewById(R.id.clock),
                 statusbarView.findViewById(R.id.operator_name_frame),
-                statusbarView.findViewById(R.id.centered_icon_area),
-                statusbarView.findViewById(R.id.status_bar_logo),
-                statusbarView.findViewById(R.id.left_icon_area));
+                statusbarView.findViewById(R.id.centered_icon_area));
     }
 
     @VisibleForTesting
@@ -127,9 +121,7 @@ public class HeadsUpAppearanceController implements OnHeadsUpChangedListener,
             NotificationPanelView panelView,
             View clockView,
             View operatorNameView,
-            View centeredIconView,
-            View aexLogoView,
-            LinearLayout customIconArea) {
+            View centeredIconView) {
         mNotificationIconAreaController = notificationIconAreaController;
         mHeadsUpManager = headsUpManager;
         mHeadsUpManager.addListener(this);
@@ -146,9 +138,7 @@ public class HeadsUpAppearanceController implements OnHeadsUpChangedListener,
         mStackScroller.addOnLayoutChangeListener(mStackScrollLayoutChangeListener);
         mStackScroller.setHeadsUpAppearanceController(this);
         mClockView = clockView;
-        mAEXLogoView = aexLogoView;
         mOperatorNameView = operatorNameView;
-        mCustomIconArea = customIconArea;
         mDarkIconDispatcher = Dependency.get(DarkIconDispatcher.class);
         mDarkIconDispatcher.addDarkReceiver(this);
 
@@ -287,33 +277,21 @@ public class HeadsUpAppearanceController implements OnHeadsUpChangedListener,
                 updateParentClipping(false /* shouldClip */);
                 mHeadsUpStatusBarView.setVisibility(View.VISIBLE);
                 show(mHeadsUpStatusBarView);
-                if (((Clock)mClockView).shouldBeVisible()) {
-                    hide(mClockView, View.INVISIBLE);
-                }
+                hide(mClockView, View.INVISIBLE);
                 if (mCenteredIconView.getVisibility() != View.GONE) {
                     hide(mCenteredIconView, View.INVISIBLE);
                 }
                 if (mOperatorNameView != null) {
                     hide(mOperatorNameView, View.INVISIBLE);
                 }
-               if (mAEXLogoView.getVisibility() != View.GONE) {
-                    hide(mAEXLogoView, View.INVISIBLE);
-                }
-                hide(mCustomIconArea, View.INVISIBLE);
             } else {
-                if (((Clock)mClockView).shouldBeVisible()) {
-                    show(mClockView);
-                }
+                show(mClockView);
                 if (mCenteredIconView.getVisibility() != View.GONE) {
                     show(mCenteredIconView);
                 }
                 if (mOperatorNameView != null) {
                     show(mOperatorNameView);
                 }
-               if (mAEXLogoView.getVisibility() != View.GONE) {
-                    show(mAEXLogoView);
-                }
-                show(mCustomIconArea);
                 hide(mHeadsUpStatusBarView, View.GONE, () -> {
                     updateParentClipping(true /* shouldClip */);
                 });

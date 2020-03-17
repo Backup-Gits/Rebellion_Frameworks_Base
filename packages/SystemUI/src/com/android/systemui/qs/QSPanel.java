@@ -227,8 +227,6 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
             }
         });
         mDumpController = dumpController;
-
-        updateSettings();
     }
 
     protected void addDivider() {
@@ -619,7 +617,7 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
 
         if (mTileLayout != null) {
             mTileLayout.addTile(r);
-            configureTile(r.tile, r.tileView);
+            tileClickListener(r.tile, r.tileView);
         }
 
         return r;
@@ -828,9 +826,6 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         int getOffsetTop(TileRecord tile);
 
         boolean updateResources();
-        void updateSettings();
-        int getNumColumns();
-        boolean isShowTitles();
 
         void setListening(boolean listening);
 
@@ -890,45 +885,19 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         }
     }
 
-    private void configureTile(QSTile t, QSTileView v) {
+    private void tileClickListener(QSTile t, QSTileView v) {
         if (mTileLayout != null) {
             v.setOnClickListener(view -> {
                     t.click();
                     setAnimationTile(v);
             });
-            v.setHideLabel(!mTileLayout.isShowTitles());
-            if (t.isDualTarget()) {
-                if (!mTileLayout.isShowTitles()) {
-                    v.setOnLongClickListener(view -> {
-                        t.secondaryClick();
-                        return true;
-                    });
-                } else {
-                    v.setOnLongClickListener(view -> {
-                        t.longClick();
-                        return true;
-                    });
-                }
-            }
         }
     }
-
     public void updateSettings() {
         if (mFooter != null) {
             mFooter.updateSettings();
         }
 
-        if (mTileLayout != null) {
-            mTileLayout.updateSettings();
-
-            for (TileRecord r : mRecords) {
-                configureTile(r.tile, r.tileView);
-            }
-        }
-    }
-
-    public int getNumColumns() {
-        return mTileLayout.getNumColumns();
     }
     private void setBrightnessMinMax(boolean min) {
         mBrightnessController.setBrightnessFromSliderButtons(min ? 0 : GAMMA_SPACE_MAX);

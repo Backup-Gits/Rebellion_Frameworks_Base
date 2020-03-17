@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2015-2018 AOSiP
+     Copyright (C) 2018 AospExtended ROM
+     Copyright (C) 2020 Rebellion-OS
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,6 +16,10 @@
      limitations under the License.
 -->
 <resources>
-    <!-- Color of the FOD view -->
-    <color name="config_fodColor">#00ff00</color>
+
+    <!-- Battery Bar -->
+    <declare-styleable name="BatteryBarController">
+        <attr name="viewLocation" format="integer" />
+    </declare-styleable>
+
 </resources>

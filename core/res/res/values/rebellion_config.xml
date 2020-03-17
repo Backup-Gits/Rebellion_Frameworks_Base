@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2012-2015 The CyanogenMod Project
-     Copyright (C) 2017 The LineageOS Project
+     Copyright (C) 2020 Rebellion-OS
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -55,9 +54,6 @@
     <string-array name="config_deviceKeyHandlerClasses" translatable="false">
     </string-array>
 
-    <!-- Whether to show emergency button in power menu -->
-    <bool name="config_showEmergencyButtonInPowerMenu">false</bool>
-
     <!-- Whether device ignores the RSSNR signal implementation -->
     <bool name="config_ignoreRssnrSignalLevel">false</bool>
 
@@ -96,4 +92,5 @@
 
     <!-- True if the home button has the ability to wake up phone from lockscreen-->
     <bool name="config_HomeWakeButton">false</bool>
+
 </resources>

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.android.internal.util.aospextended;
+package com.android.internal.util.rebellion;
 
 import android.animation.ValueAnimator;
 import android.graphics.Color;

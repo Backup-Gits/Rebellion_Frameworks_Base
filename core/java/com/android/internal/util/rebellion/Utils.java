@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.internal.util.aospextended;
+package com.android.internal.util.rebellion;
 
 import android.Manifest;
 import android.content.Context;
@@ -42,7 +42,6 @@ import android.util.DisplayMetrics;
 import com.android.internal.R;
 
 import java.util.List;
-import java.util.Locale;
 
 import com.android.internal.statusbar.IStatusBarService;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -50,7 +49,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 /**
  * Some custom utilities
  */
-public class AEXUtils {
+public class Utils {
 
     public static final String INTENT_SCREENSHOT = "action_take_screenshot";
     public static final String INTENT_REGION_SCREENSHOT = "action_take_region_screenshot";
@@ -232,11 +231,5 @@ public class AEXUtils {
         boolean maskDisplayCutout = context.getResources().getBoolean(R.bool.config_maskMainBuiltInDisplayCutout);
         boolean displayCutoutExists = (!TextUtils.isEmpty(displayCutout) && !maskDisplayCutout);
         return displayCutoutExists;
-    }
-
-    // Check for Chinese language
-    public static boolean isChineseLanguage() {
-       return Resources.getSystem().getConfiguration().locale.getLanguage().startsWith(
-               Locale.CHINESE.getLanguage());
     }
 }

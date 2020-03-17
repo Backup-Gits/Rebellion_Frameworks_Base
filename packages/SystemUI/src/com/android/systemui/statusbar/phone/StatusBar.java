@@ -140,7 +140,7 @@ import com.android.internal.util.hwkeys.ActionUtils;
 import com.android.internal.util.hwkeys.PackageMonitor;
 import com.android.internal.util.hwkeys.PackageMonitor.PackageChangedListener;
 import com.android.internal.util.hwkeys.PackageMonitor.PackageState;
-import com.android.internal.util.aospextended.AEXUtils;
+import com.android.internal.util.rebellion.Utils;
 import com.android.internal.widget.LockPatternUtils;
 import com.android.keyguard.KeyguardUpdateMonitor;
 import com.android.keyguard.KeyguardUpdateMonitorCallback;
@@ -184,7 +184,6 @@ import com.android.systemui.plugins.statusbar.NotificationSwipeActionHelper.Snoo
 import com.android.systemui.plugins.statusbar.StatusBarStateController;
 import com.android.systemui.qs.QSFragment;
 import com.android.systemui.qs.QSPanel;
-import com.android.systemui.qs.QuickQSPanel;
 import com.android.systemui.recents.Recents;
 import com.android.systemui.recents.ScreenPinningRequest;
 import com.android.systemui.shared.system.WindowManagerWrapper;
@@ -419,7 +418,6 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     // settings
     private QSPanel mQSPanel;
-    private QuickQSPanel mQuickQSPanel;
 
     KeyguardIndicationController mKeyguardIndicationController;
 
@@ -474,8 +472,6 @@ public class StatusBar extends SystemUI implements DemoMode,
     private final DisplayMetrics mDisplayMetrics = Dependency.get(DisplayMetrics.class);
 
     private PackageMonitor mPackageMonitor;
-
-    private boolean mSysuiRoundedFwvals;
 
     // XXX: gesture research
     private final GestureRecorder mGestureRec = DEBUG_GESTURES
@@ -1029,6 +1025,28 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         // Set up the quick settings tile panel
         setUpQuickSettingsTilePanel();
+        View container = mStatusBarWindow.findViewById(R.id.qs_frame);
+        if (container != null) {
+            FragmentHostManager fragmentHostManager = FragmentHostManager.get(container);
+            ExtensionFragmentListener.attachExtensonToFragment(container, QS.TAG, R.id.qs_frame,
+                    Dependency.get(ExtensionController.class)
+                            .newExtension(QS.class)
+                            .withPlugin(QS.class)
+                            .withDefault(this::createDefaultQSFragment)
+                            .build());
+            mBrightnessMirrorController = new BrightnessMirrorController(mContext, mStatusBarWindow,
+                    (visible) -> {
+                        mBrightnessMirrorVisible = visible;
+                        updateScrimController();
+                    });
+            fragmentHostManager.addTagListener(QS.TAG, (tag, f) -> {
+                QS qs = (QS) f;
+                if (qs instanceof QSFragment) {
+                    mQSPanel = ((QSFragment) qs).getQsPanel();
+                    mQSPanel.setBrightnessMirror(mBrightnessMirrorController);
+                }
+            });
+        }
 
         mReportRejectedTouch = mStatusBarWindow.findViewById(R.id.report_rejected_touch);
         if (mReportRejectedTouch != null) {
@@ -1313,7 +1331,6 @@ public class StatusBar extends SystemUI implements DemoMode,
                 if (qs instanceof QSFragment) {
                     mQSPanel = ((QSFragment) qs).getQsPanel();
                     mQSPanel.setBrightnessMirror(mBrightnessMirrorController);
-                    mQuickQSPanel = ((QSFragment) qs).getQuickQsPanel();
                 }
             });
         }
@@ -2973,9 +2990,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         if (mQSPanel != null) {
             mQSPanel.updateResources();
         }
-        if (mQuickQSPanel != null) {
-            mQuickQSPanel.updateResources();
-        }
+
         loadDimens();
 
         if (mStatusBarView != null) {
@@ -3548,25 +3563,6 @@ public class StatusBar extends SystemUI implements DemoMode,
         mScrimController.setExpansionAffectsAlpha(true);
     }
 
-    public boolean isCurrentRoundedSameAsFw() {
-        float density = Resources.getSystem().getDisplayMetrics().density;
-        // Resource IDs for framework properties
-        int resourceIdRadius = (int) mContext.getResources().getDimension(com.android.internal.R.dimen.rounded_corner_radius);
-        int resourceIdPadding = (int) mContext.getResources().getDimension(R.dimen.rounded_corner_content_padding);
-
-        // Values on framework resources
-        int cornerRadiusRes = (int) (resourceIdRadius / density);
-        int contentPaddingRes = (int) (resourceIdPadding / density);
-
-        // Values in Settings DBs
-        int cornerRadius = Settings.Secure.getIntForUser(mContext.getContentResolver(),
-                Settings.Secure.SYSUI_ROUNDED_SIZE, cornerRadiusRes, UserHandle.USER_CURRENT);
-        int contentPadding = Settings.Secure.getIntForUser(mContext.getContentResolver(),
-                Settings.Secure.SYSUI_ROUNDED_CONTENT_PADDING, contentPaddingRes, UserHandle.USER_CURRENT);
-
-        return (cornerRadiusRes == cornerRadius) && (contentPaddingRes == contentPadding);
-    }
-
     /**
      * Switches theme from light to dark and vice-versa.
      */
@@ -3579,22 +3575,6 @@ public class StatusBar extends SystemUI implements DemoMode,
         if (mContext.getThemeResId() != themeResId) {
             mContext.setTheme(themeResId);
             Dependency.get(ConfigurationController.class).notifyThemeChanged();
-        }
-        updateCorners();
-    }
-
-    private void updateCorners() {
-        mSysuiRoundedFwvals = Settings.Secure.getIntForUser(mContext.getContentResolver(),
-                Settings.Secure.SYSUI_ROUNDED_FWVALS, 1,
-                UserHandle.USER_CURRENT) == 1;
-        if (mSysuiRoundedFwvals && !isCurrentRoundedSameAsFw()) {
-            float density = Resources.getSystem().getDisplayMetrics().density;
-            int resourceIdRadius = (int) mContext.getResources().getDimension(com.android.internal.R.dimen.rounded_corner_radius);
-            Settings.Secure.putIntForUser(mContext.getContentResolver(),
-                Settings.Secure.SYSUI_ROUNDED_SIZE, (int) (resourceIdRadius / density), UserHandle.USER_CURRENT);
-            int resourceIdPadding = (int) mContext.getResources().getDimension(R.dimen.rounded_corner_content_padding);
-            Settings.Secure.putIntForUser(mContext.getContentResolver(),
-                Settings.Secure.SYSUI_ROUNDED_CONTENT_PADDING, (int) (resourceIdPadding / density), UserHandle.USER_CURRENT);
         }
     }
 
@@ -4628,9 +4608,6 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.LESS_BORING_HEADS_UP),
                     false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.Secure.getUriFor(
-                    Settings.Secure.SYSUI_ROUNDED_FWVALS),
-                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -4668,7 +4645,6 @@ public class StatusBar extends SystemUI implements DemoMode,
             setQsPanelOptions();
             setScreenBrightnessMode();
             setUseLessBoringHeadsUp();
-            updateCorners();
         }
     }
 

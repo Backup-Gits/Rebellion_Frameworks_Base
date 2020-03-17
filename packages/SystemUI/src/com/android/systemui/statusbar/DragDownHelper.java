@@ -25,7 +25,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 
-import com.android.internal.util.aospextended.AEXUtils;
+import com.android.internal.util.rebellion.Utils;
 import com.android.systemui.ExpandHelper;
 import com.android.systemui.Gefingerpoken;
 import com.android.systemui.Interpolators;
@@ -81,7 +81,7 @@ public class DragDownHelper implements Gefingerpoken {
         mGoToSleep = new Runnable() {
             @Override
             public void run() {
-                AEXUtils.switchScreenOff(context);
+                Utils.switchScreenOff(context);
             }
         };
     }

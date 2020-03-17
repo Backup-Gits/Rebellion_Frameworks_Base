@@ -4556,76 +4556,6 @@ public final class Settings {
         public static final String STATUS_BAR_QUICK_QS_PULLDOWN = "status_bar_quick_qs_pulldown";
 
         /**
-         * Whether to display sound panel in the power menu
-         *
-         * @hide
-         */
-        public static final String POWERMENU_SOUNDPANEL = "powermenu_soundpanel";
-
-         /**
-         * Whether to display screenshot in the power menu
-         *
-         * @hide
-         */
-        public static final String POWERMENU_SCREENSHOT = "powermenu_screenshot";
-
-         /**
-         * Whether to display settings in the power menu
-         *
-         * @hide
-         */
-        public static final String POWERMENU_SETTINGS = "powermenu_settings";
-
-         /**
-         * Whether to display lock in the power menu
-         *
-         * @hide
-         */
-        public static final String POWERMENU_LOCKDOWN = "powermenu_lockdown";
-
-         /**
-         * Whether to display airplane in the power menu
-         *
-         * @hide
-         */
-        public static final String POWERMENU_AIRPLANE = "powermenu_airplane";
-
-         /**
-         * Whether to display reboot in the power menu
-         *
-         * @hide
-         */
-        public static final String POWERMENU_RESTART = "powermenu_restart";
-
-         /**
-         * Whether to display advanced reboot in the power menu
-         *
-         * @hide
-         */
-        public static final String POWERMENU_RESTART_RECOVERY = "powermenu_restart_recovery";
-
-         /**
-         * Whether to display power in the power menu
-         *
-         * @hide
-         */
-        public static final String POWERMENU_POWER = "powermenu_power";
-
-         /**
-         * Whether to display the users option in the power menu
-         *
-         * @hide
-         */
-        public static final String POWERMENU_USERS = "powermenu_users";
-
-         /**
-         * Whether to display the users option in the power menu
-         *
-         * @hide
-         */
-        public static final String POWERMENU_LOGOUT = "powermenu_logout";
-
-        /**
          * Double tap on lockscreen to sleep
          * @hide
          */
@@ -4655,40 +4585,6 @@ public final class Settings {
          * @hide
          */
         public static final String VOLUME_BUTTON_MUSIC_CONTROL = "volume_button_music_control";
-
-        /**
-         * Number of qs columns on landscape orientation
-         * @hide
-         */
-        public static final String QS_LAYOUT_COLUMNS_LANDSCAPE = "qs_layout_columns_landscape";
-         /** @hide */
-        private static final Validator QS_LAYOUT_COLUMNS_LANDSCAPE_VALIDATOR =
-                ANY_INTEGER_VALIDATOR;
-
-         /**
-         * @hide
-         */
-        public static final String QS_LAYOUT_COLUMNS = "qs_layout_columns";
-         /** @hide */
-        private static final Validator QS_LAYOUT_COLUMNS_VALIDATOR =
-                ANY_INTEGER_VALIDATOR;
-
-        /**
-         * Whether to display qs tile titles in the qs panel
-         * @hide
-         */
-        public static final String QS_TILE_TITLE_VISIBILITY = "qs_tile_title_visibility";
-        /** @hide */
-        private static final Validator QS_TILE_TITLE_VISIBILITY_VALIDATOR =
-                BOOLEAN_VALIDATOR;
-
-        /**
-         * @hide
-         */
-        public static final String QS_QUICKBAR_COLUMNS = "qs_quickbar_columns";
-        /** @hide */
-        private static final Validator QS_QUICKBAR_COLUMNS_VALIDATOR =
-                ANY_INTEGER_VALIDATOR;
 
         /**
          * Whether to show the battery info on the lockscreen while charging
@@ -4785,12 +4681,6 @@ public final class Settings {
         * @hide
         */
         public static final String SETTING_BUTTON_TOGGLE = "setting_button_toggle";
-
-        /**
-         * Whether to display our aex logo in the statusbar for extra swag
-         * @hide
-         */
-        public static final String STATUS_BAR_LOGO = "status_bar_logo";
 
         /**
          * Wheter to show network traffic indicator in statusbar
@@ -5024,23 +4914,6 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
-         * Status bar carrier label
-         * 0: Hide
-         * 1: Display on keyguard status bar
-         * 2: Display on Normal status bar
-         * 3: Enabled for both
-         * @hide
-         */
-        public static final String STATUS_BAR_SHOW_CARRIER = "status_bar_show_carrier";
-
-        /**
-         * custom carrier label. The value is
-         * String.
-         * @hide
-         */
-        public static final String CUSTOM_CARRIER_LABEL = "custom_carrier_label";
-
-        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5105,10 +4978,6 @@ public final class Settings {
             DISPLAY_COLOR_MODE,
             ALARM_ALERT,
             NOTIFICATION_LIGHT_PULSE,
-            QS_LAYOUT_COLUMNS_LANDSCAPE,
-            QS_LAYOUT_COLUMNS,
-            QS_TILE_TITLE_VISIBILITY,
-            QS_QUICKBAR_COLUMNS,
             BACK_GESTURE_HEIGHT,
             HEADS_UP_STOPLIST_VALUES,
             HEADS_UP_BLACKLIST_VALUES,
@@ -5240,10 +5109,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_MODE);
             PRIVATE_SETTINGS.add(DOUBLE_TAP_SLEEP_LOCKSCREEN);
             PRIVATE_SETTINGS.add(DOUBLE_TAP_SLEEP_GESTURE);
-            PRIVATE_SETTINGS.add(QS_LAYOUT_COLUMNS_LANDSCAPE);
-            PRIVATE_SETTINGS.add(QS_LAYOUT_COLUMNS);
-            PRIVATE_SETTINGS.add(QS_TILE_TITLE_VISIBILITY);
-            PRIVATE_SETTINGS.add(QS_QUICKBAR_COLUMNS);
             PRIVATE_SETTINGS.add(BACK_GESTURE_HEIGHT);
             PRIVATE_SETTINGS.add(SWAP_VOLUME_BUTTONS);
             PRIVATE_SETTINGS.add(TOAST_ICON);
@@ -5267,14 +5132,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LESS_BORING_HEADS_UP);
             PRIVATE_SETTINGS.add(NOTIFICATION_GUTS_KILL_APP_BUTTON);
         }
-
-
-        /**
-         * Whether to display the torch option in the power menu
-         *
-         * @hide
-         */
-        public static final String POWERMENU_TORCH = "powermenu_torch";
 
         /**
          * These are all public system settings
@@ -5367,11 +5224,6 @@ public final class Settings {
             VALIDATORS.put(WIFI_STATIC_DNS2, WIFI_STATIC_DNS2_VALIDATOR);
             VALIDATORS.put(SHOW_BATTERY_PERCENT, SHOW_BATTERY_PERCENT_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_LIGHT_PULSE, BOOLEAN_VALIDATOR);
-            VALIDATORS.put(QS_LAYOUT_COLUMNS_LANDSCAPE,
-                    QS_LAYOUT_COLUMNS_LANDSCAPE_VALIDATOR);
-            VALIDATORS.put(QS_LAYOUT_COLUMNS, QS_LAYOUT_COLUMNS_VALIDATOR);
-            VALIDATORS.put(QS_TILE_TITLE_VISIBILITY, QS_TILE_TITLE_VISIBILITY_VALIDATOR);
-            VALIDATORS.put(QS_QUICKBAR_COLUMNS, QS_QUICKBAR_COLUMNS_VALIDATOR);
             VALIDATORS.put(BACK_GESTURE_HEIGHT, BACK_GESTURE_HEIGHT_VALIDATOR);
             VALIDATORS.put(HEADS_UP_STOPLIST_VALUES, HEADS_UP_STOPLIST_VALUES_VALIDATOR);
             VALIDATORS.put(HEADS_UP_BLACKLIST_VALUES, HEADS_UP_BLACKLIST_VALUES_VALIDATOR);
@@ -9650,88 +9502,6 @@ public final class Settings {
 
         private static final Validator AWARE_LOCK_ENABLED_VALIDATOR = BOOLEAN_VALIDATOR;
 
-         /**
-         * Show or hide clock
-         * 0 - hide
-         * 1 - show (default)
-         * @hide
-         */
-        public static final String STATUS_BAR_CLOCK = "status_bar_clock";
-
-        /**
-         * @hide
-         */
-        public static final Validator STATUS_BAR_CLOCK_VALIDATOR =
-                new SettingsValidators.InclusiveIntegerRangeValidator(0, 1);
-
-        /**
-         * AM/PM Style for clock options
-         * 0 - No AM/PM  (default)
-         * 1 - Small AM/PM
-         * 2 - Normal AM/PM
-         * @hide
-         */
-        public static final String STATUSBAR_CLOCK_AM_PM_STYLE = "statusbar_clock_am_pm_style";
-
-        /**
-         * @hide
-         */
-        public static final Validator STATUSBAR_CLOCK_AM_PM_STYLE_VALIDATOR =
-                new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
-
-        /**
-         * Shows custom date before clock time
-         * 0 - No Date
-         * 1 - Small Date
-         * 2 - Normal Date
-         * @hide
-         */
-        public static final String STATUSBAR_CLOCK_DATE_DISPLAY = "statusbar_clock_date_display";
-
-        /**
-         * @hide
-         */
-        public static final Validator STATUSBAR_CLOCK_DATE_DISPLAY_VALIDATOR =
-                new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
-
-        /**
-         * Sets the date string style
-         * 0 - Regular style
-         * 1 - Lowercase
-         * 2 - Uppercase
-         * @hide
-         */
-        public static final String STATUSBAR_CLOCK_DATE_STYLE = "statusbar_clock_date_style";
-
-        /**
-         * @hide
-         */
-        public static final Validator STATUSBAR_CLOCK_DATE_STYLE_VALIDATOR =
-                new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
-
-        /**
-         * Stores the java DateFormat string for the date
-         * @hide
-         */
-        public static final String STATUSBAR_CLOCK_DATE_FORMAT = "statusbar_clock_date_format";
-
-        /**
-         * @hide
-         */
-        public static final Validator STATUSBAR_CLOCK_DATE_FORMAT_VALIDATOR = ANY_STRING_VALIDATOR;
-
-        /**
-         * Position of date
-         * 0 - Left of clock
-         * 1 - Right of clock
-         * @hide
-         */
-        public static final String STATUSBAR_CLOCK_DATE_POSITION = "statusbar_clock_date_position";
-
-        /** @hide */
-        public static final Validator STATUSBAR_CLOCK_DATE_POSITION_VALIDATOR =
-                new SettingsValidators.InclusiveIntegerRangeValidator(0, 1);
-
         /**
          * Whether user is allowed to pull down quick settings on secure keyguard.
          * @hide
@@ -9796,18 +9566,6 @@ public final class Settings {
          * @hide
          */
         public static final String LOCKSCREEN_SOLID_UNITS_OPACITY = "lockscreen_solid_units_opacity";
-
-        /**
-         * Setting to allow setting rounded corner size and content padding
-         */
-        public static final String SYSUI_ROUNDED_SIZE = "sysui_rounded_size";
-        public static final String SYSUI_ROUNDED_CONTENT_PADDING = "sysui_rounded_content_padding";
-
-        /**
-         * Setting to disable rounded corner preferences and use frameworks values instead
-         * @hide
-         */
-        public static final String SYSUI_ROUNDED_FWVALS = "sysui_rounded_fwvals";
 
         /**
          * This are the settings to be backed up.

@@ -7436,5 +7436,8 @@ message MetricsEvent {
 
     //Extensions
     EXTENSIONS = 1150;
+
+    // RebellionSettings
+       REBELLION_SETTINGS = 2222;
   }
 }

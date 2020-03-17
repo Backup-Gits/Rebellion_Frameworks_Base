@@ -1,5 +1,6 @@
 <!--
    Copyright (C) 2015-2019 AospExtended
+   Copyright (C) 2020 Rebellion-OS
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -42,17 +43,6 @@
     <java-symbol type="array" name="config_deviceKeyHandlerLibs" />
     <java-symbol type="array" name="config_deviceKeyHandlerClasses" />
 
-    <!-- Advanced reboot -->
-    <java-symbol type="string" name="reboot_to_recovery_title" />
-    <java-symbol type="string" name="reboot_to_recovery_message" />
-    <java-symbol type="string" name="reboot_to_bootloader_title" />
-    <java-symbol type="string" name="reboot_to_bootloader_message" />
-    <java-symbol type="string" name="reboot_title" />
-    <java-symbol type="string" name="reboot_message" />
-
-    <!-- Emergency button in power menu -->
-    <java-symbol type="bool" name="config_showEmergencyButtonInPowerMenu" />
-
     <!-- Whether device supports an alt. ambient display -->
     <java-symbol type="bool" name="config_alt_ambient_display"/>
 
@@ -86,4 +76,5 @@
 
     <!-- Home button wake -->
     <java-symbol type="bool" name="config_HomeWakeButton" />
+
 </resources>
