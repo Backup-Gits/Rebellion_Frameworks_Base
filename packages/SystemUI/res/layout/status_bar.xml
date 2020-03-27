@@ -160,7 +160,7 @@
         android:layout="@layout/emergency_cryptkeeper_text"
     />
 
-    <com.android.systemui.aospextended.batterybar.BatteryBarController
+    <com.android.systemui.statusbar.policy.BatteryBarController
         android:layout_width="match_parent"
         android:layout_height="1dp"
         systemui:viewLocation="1" />

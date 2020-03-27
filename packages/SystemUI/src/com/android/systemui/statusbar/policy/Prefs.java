@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.systemui.aospextended.batterybar;
+package com.android.systemui.statusbar.policy;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -39,5 +39,4 @@ public class Prefs {
     public static int getLastBatteryLevel(Context context) {
         return read(context).getInt(LAST_BATTERY_LEVEL, 50);
     }
-
 }
