@@ -111,7 +111,7 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
     public static final int STYLE_DATE_LEFT = 0;
     public static final int STYLE_DATE_RIGHT = 1;
 
-    private int mClockFontStyle = FONT_NORMAL;
+    private int mClockFontStyle = FONT_BLACK;
     public static final int FONT_NORMAL = 0;
     public static final int FONT_ITALIC = 1;
     public static final int FONT_BOLD = 2;
@@ -755,7 +755,7 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
 
     private void updateClockFontStyle() {
         mClockFontStyle = Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.STATUS_BAR_CLOCK_FONT_STYLE, FONT_NORMAL,
+                Settings.System.STATUS_BAR_CLOCK_FONT_STYLE, FONT_BLACK,
 		UserHandle.USER_CURRENT);
         getClockFontStyle(mClockFontStyle);
         updateClock();
@@ -764,7 +764,6 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
     public void getClockFontStyle(int font) {
         switch (font) {
             case FONT_NORMAL:
-            default:
                 setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
                 break;
             case FONT_ITALIC:
@@ -813,6 +812,7 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
                 setTypeface(Typeface.create("sans-serif-medium", Typeface.ITALIC));
                 break;
             case FONT_BLACK:
+            default:
                 setTypeface(Typeface.create("sans-serif-black", Typeface.NORMAL));
                 break;
             case FONT_BLACK_ITALIC:
