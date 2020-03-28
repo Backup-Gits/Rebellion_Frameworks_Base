@@ -45,7 +45,6 @@ import android.os.Trace;
 import android.os.UserHandle;
 import android.provider.DeviceConfig;
 import android.provider.DeviceConfig.Properties;
-import android.provider.Settings;
 import android.util.ArraySet;
 import android.util.Log;
 import android.view.View;
@@ -124,9 +123,6 @@ public class NotificationMediaManager implements Dumpable {
     private ScrimController mScrimController;
     @Nullable
     private LockscreenWallpaper mLockscreenWallpaper;
-
-    private float mLockscreenMediaBlur;
-    private boolean mShowLockscreenMediaArt;
 
     private final Handler mHandler = Dependency.get(MAIN_HANDLER);
 
@@ -490,7 +486,7 @@ public class NotificationMediaManager implements Dumpable {
         }
 
         Bitmap artworkBitmap = null;
-        if (mShowLockscreenMediaArt && mediaMetadata != null && !mKeyguardBypassController.getBypassEnabled()) {
+        if (mediaMetadata != null && !mKeyguardBypassController.getBypassEnabled()) {
             artworkBitmap = mediaMetadata.getBitmap(MediaMetadata.METADATA_KEY_ART);
             if (artworkBitmap == null) {
                 artworkBitmap = mediaMetadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART);
@@ -695,19 +691,7 @@ public class NotificationMediaManager implements Dumpable {
     };
 
     private Bitmap processArtwork(Bitmap artwork) {
-        return mMediaArtworkProcessor.processArtwork(mContext, artwork, mLockscreenMediaBlur);
-    }
-
-    public void setLockScreenMediaBlurLevel() {
-        mLockscreenMediaBlur = (float) Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.LOCKSCREEN_MEDIA_BLUR, 25,
-                UserHandle.USER_CURRENT);
-    }
-
-    public void setLockScreenMediaArt() {
-        mShowLockscreenMediaArt = Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.SHOW_LOCKSCREEN_MEDIA_ART, 1,
-                UserHandle.USER_CURRENT) == 1;
+        return mMediaArtworkProcessor.processArtwork(mContext, artwork);
     }
 
     @MainThread

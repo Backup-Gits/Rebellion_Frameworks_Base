@@ -4613,12 +4613,6 @@ public class StatusBar extends SystemUI implements DemoMode,
                     Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.LOCKSCREEN_MEDIA_BLUR),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.SHOW_LOCKSCREEN_MEDIA_ART),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.QS_FOOTER_WARNINGS),
                     false, this, UserHandle.USER_ALL);
             /*resolver.registerContentObserver(Settings.System.getUriFor(
@@ -4657,12 +4651,6 @@ public class StatusBar extends SystemUI implements DemoMode,
                     Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN))) {
                 setStatusBarWindowViewOptions();
             } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.LOCKSCREEN_MEDIA_BLUR))) {
-                setLockScreenMediaBlurLevel();
-            }  else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.SHOW_LOCKSCREEN_MEDIA_ART))) {
-                setLockScreenMediaArt();
-            } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.QS_FOOTER_WARNINGS))) {
                 setQsPanelOptions();
             }
@@ -4674,8 +4662,6 @@ public class StatusBar extends SystemUI implements DemoMode,
             setHeadsUpStoplist();
             setHeadsUpBlacklist();
             setStatusBarWindowViewOptions();
-            setLockScreenMediaBlurLevel();
-            setLockScreenMediaArt();
             setQsPanelOptions();
             setScreenBrightnessMode();
             setUseLessBoringHeadsUp();
@@ -4708,18 +4694,6 @@ public class StatusBar extends SystemUI implements DemoMode,
     private void setQsPanelOptions() {
         if (mQSPanel != null) {
             mQSPanel.updateSettings();
-        }
-    }
-
-    private void setLockScreenMediaBlurLevel() {
-        if (mMediaManager != null) {
-            mMediaManager.setLockScreenMediaBlurLevel();
-        }
-    }
-
-    private void setLockScreenMediaArt() {
-        if (mMediaManager != null) {
-            mMediaManager.setLockScreenMediaArt();
         }
     }
 
