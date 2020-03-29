@@ -4829,16 +4829,6 @@ public final class Settings {
          public static final String NETWORK_TRAFFIC_VIEW_LOCATION = "network_traffic_view_location";
 
         /**
-         * whether to enable or disable vibration on succesful fingerprint auth
-         *
-         * @hide
-         */
-        public static final String FP_SUCCESS_VIBRATE = "fingerprint_success_vib";
-        /** @hide */
-        private static final Validator FP_SUCCESS_VIBRATE_VALIDATOR =
-                BOOLEAN_VALIDATOR;
-
-        /**
           * Volume keys control cursor in text fields (default is 0)
           * 0 - Disabled
           * 1 - Volume up/down moves cursor left/right
@@ -5276,7 +5266,6 @@ public final class Settings {
             BACK_GESTURE_HEIGHT,
             HEADS_UP_STOPLIST_VALUES,
             HEADS_UP_BLACKLIST_VALUES,
-            FP_SUCCESS_VIBRATE,
             VOLUME_KEY_CURSOR_CONTROL,
             VIBRATE_ON_CONNECT,
             VIBRATE_ON_CALLWAITING,
@@ -5432,7 +5421,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD);
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_FONT_SIZE);
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_VIEW_LOCATION);
-            PRIVATE_SETTINGS.add(FP_SUCCESS_VIBRATE);
             PRIVATE_SETTINGS.add(VOLUME_KEY_CURSOR_CONTROL);
             PRIVATE_SETTINGS.add(VIBRATE_ON_CONNECT);
             PRIVATE_SETTINGS.add(VIBRATE_ON_CALLWAITING);
@@ -5558,7 +5546,6 @@ public final class Settings {
             VALIDATORS.put(BACK_GESTURE_HEIGHT, BACK_GESTURE_HEIGHT_VALIDATOR);
             VALIDATORS.put(HEADS_UP_STOPLIST_VALUES, HEADS_UP_STOPLIST_VALUES_VALIDATOR);
             VALIDATORS.put(HEADS_UP_BLACKLIST_VALUES, HEADS_UP_BLACKLIST_VALUES_VALIDATOR);
-            VALIDATORS.put(FP_SUCCESS_VIBRATE, FP_SUCCESS_VIBRATE_VALIDATOR);
             VALIDATORS.put(VOLUME_KEY_CURSOR_CONTROL, VOLUME_KEY_CURSOR_CONTROL_VALIDATOR);
             VALIDATORS.put(VIBRATE_ON_CONNECT, VIBRATE_ON_CONNECT_VALIDATOR);
             VALIDATORS.put(VIBRATE_ON_CALLWAITING, VIBRATE_ON_CALLWAITING_VALIDATOR);
