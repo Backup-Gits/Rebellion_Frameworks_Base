@@ -467,12 +467,9 @@ public class QSFragment extends LifecycleFragment implements QS, CommandQueue.Ca
         // and whatnot are.
         mPanelView.onQsHeightChanged();
 
-        // when we come back from customize update
-        if (!mQSCustomizer.isCustomizing()) {
-            mQSPanel.updateSettings();
-            mQuickQSPanel.updateSettings();
-            mQSAnimator.updateSettings();
-        }
+        mQSPanel.updateSettings();
+        mQuickQSPanel.updateSettings();
+        mQSAnimator.updateSettings();
     }
 
     /**
@@ -545,3 +542,4 @@ public class QSFragment extends LifecycleFragment implements QS, CommandQueue.Ca
         return mQuickQSPanel;
     }
 }
+
