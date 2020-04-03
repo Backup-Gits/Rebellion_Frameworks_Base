@@ -4679,6 +4679,20 @@ public final class Settings {
         public static final String SETTING_BUTTON_TOGGLE = "setting_button_toggle";
 
         /**
+         * Show Settings icon in QS Footer
+         *
+         * @hide
+         */
+        public static final String QS_FOOTER_SHOW_SETTINGS = "qs_footer_show_settings";
+
+        /**
+         * Show User switcher icon in QS Footer.
+         *
+         * @hide
+         */
+        public static final String QS_FOOTER_SHOW_USER = "qs_footer_show_user";
+
+        /**
          * Wheter to show network traffic indicator in statusbar
          * @hide
          */
