@@ -85,5 +85,13 @@
                     android:visibility="gone"/>
         </LinearLayout>
 
+        <com.android.systemui.BatteryMeterView
+            android:id="@+id/battery"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="center_vertical|end"
+            android:visibility="gone" />
+
     </LinearLayout>
 </LinearLayout>
