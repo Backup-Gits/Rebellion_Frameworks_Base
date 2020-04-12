@@ -596,6 +596,7 @@ public class EdgeBackGestureHandler implements DisplayListener {
                         mThresholdCrossed = true;
                         if (mBackSwipeType == 0 && ((mLeftLongSwipeAction != 0 && mIsOnLeftEdge)
                                 || (mRightLongSwipeAction != 0 && !mIsOnLeftEdge))) {
+                            mLongSwipeAction.setIsVertical(false);
                             mHandler.postDelayed(mLongSwipeAction, (mTimeout - elapsedTime));
                         }
                         // Capture inputs
