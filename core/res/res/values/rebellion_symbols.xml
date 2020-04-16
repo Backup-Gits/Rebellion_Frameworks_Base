@@ -224,9 +224,6 @@
     <java-symbol type="string" name="config_SmartChargingSupspendValue" />
     <java-symbol type="string" name="config_SmartChargingResumeValue" />
 
-    <!-- Pulse brightness -->
-    <java-symbol type="integer" name="config_screenBrightnessPulse" />
-
     <!-- Whether the device supports Smart Pixels -->
     <java-symbol type="bool" name="config_enableSmartPixels" />
 
