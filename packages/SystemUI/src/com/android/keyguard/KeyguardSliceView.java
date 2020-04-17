@@ -197,6 +197,11 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
                Settings.System.LOCKDATE_FONT_SIZE, 14);
     }
 
+    private int getLockDateFont() {
+        return Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.LOCK_DATE_FONTS, 0);
+    }
+
     /**
      * Returns whether the current visible slice has a title/header.
      */
@@ -282,6 +287,7 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
             button.setContentDescription(rc.getContentDescription());
             button.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                     mHasHeader ? mRowWithHeaderTextSize : mRowTextSize);
+            refreshLockDateFont(button);
 
             Drawable iconDrawable = null;
             SliceItem icon = SliceQuery.find(item.getSlice(),
@@ -436,6 +442,246 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
         }
         onChanged(slice);
         Trace.endSection();
+    }
+
+    private void refreshLockDateFont(KeyguardSliceButton button) {
+        final Resources res = getContext().getResources();
+        boolean isPrimary = UserHandle.getCallingUserId() == UserHandle.USER_OWNER;
+        int lockDateFont = isPrimary ? getLockDateFont() : 0;
+        if (lockDateFont == 0) {
+            button.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+        }
+        if (lockDateFont == 1) {
+            button.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+        }
+        if (lockDateFont == 2) {
+            button.setTypeface(Typeface.create("sans-serif", Typeface.ITALIC));
+        }
+        if (lockDateFont == 3) {
+            button.setTypeface(Typeface.create("sans-serif", Typeface.BOLD_ITALIC));
+        }
+        if (lockDateFont == 4) {
+            button.setTypeface(Typeface.create("sans-serif-light", Typeface.ITALIC));
+        }
+        if (lockDateFont == 5) {
+            button.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+        }
+        if (lockDateFont == 6) {
+            button.setTypeface(Typeface.create("sans-serif-thin", Typeface.ITALIC));
+        }
+        if (lockDateFont == 7) {
+            button.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
+        }
+        if (lockDateFont == 8) {
+            button.setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
+        }
+        if (lockDateFont == 9) {
+            button.setTypeface(Typeface.create("sans-serif-condensed", Typeface.ITALIC));
+        }
+        if (lockDateFont == 10) {
+            button.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
+        }
+        if (lockDateFont == 11) {
+            button.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD_ITALIC));
+        }
+        if (lockDateFont == 12) {
+            button.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+        }
+        if (lockDateFont == 13) {
+            button.setTypeface(Typeface.create("sans-serif-medium", Typeface.ITALIC));
+        }
+        if (lockDateFont == 14) {
+            button.setTypeface(Typeface.create("sans-serif-condensed-light", Typeface.NORMAL));
+        }
+        if (lockDateFont == 15) {
+            button.setTypeface(Typeface.create("sans-serif-condensed-light", Typeface.ITALIC));
+        }
+        if (lockDateFont == 16) {
+            button.setTypeface(Typeface.create("sans-serif-black", Typeface.NORMAL));
+        }
+        if (lockDateFont == 17) {
+            button.setTypeface(Typeface.create("sans-serif-black", Typeface.ITALIC));
+        }
+        if (lockDateFont == 18) {
+            button.setTypeface(Typeface.create("cursive", Typeface.NORMAL));
+        }
+        if (lockDateFont == 19) {
+            button.setTypeface(Typeface.create("cursive", Typeface.BOLD));
+        }
+        if (lockDateFont == 20) {
+            button.setTypeface(Typeface.create("casual", Typeface.NORMAL));
+        }
+        if (lockDateFont == 21) {
+            button.setTypeface(Typeface.create("serif", Typeface.NORMAL));
+        }
+        if (lockDateFont == 22) {
+            button.setTypeface(Typeface.create("serif", Typeface.ITALIC));
+        }
+        if (lockDateFont == 23) {
+            button.setTypeface(Typeface.create("serif", Typeface.BOLD));
+        }
+        if (lockDateFont == 24) {
+            button.setTypeface(Typeface.create("serif", Typeface.BOLD_ITALIC));
+        }
+        if (lockDateFont == 25) {
+            button.setTypeface(Typeface.create("gobold-light-sys", Typeface.NORMAL));
+        }
+        if (lockDateFont == 26) {
+            button.setTypeface(Typeface.create("roadrage-sys", Typeface.NORMAL));
+        }
+        if (lockDateFont == 27) {
+            button.setTypeface(Typeface.create("snowstorm-sys", Typeface.NORMAL));
+        }
+        if (lockDateFont == 28) {
+            button.setTypeface(Typeface.create("googlesans-sys", Typeface.NORMAL));
+        }
+        if (lockDateFont == 29) {
+            button.setTypeface(Typeface.create("neoneon-sys", Typeface.NORMAL));
+        }
+        if (lockDateFont == 30) {
+            button.setTypeface(Typeface.create("themeable-sys", Typeface.NORMAL));
+    	}
+        if (lockDateFont == 31) {
+            button.setTypeface(Typeface.create("samsung-sys", Typeface.NORMAL));
+        }
+	if (lockDateFont == 32) {
+            button.setTypeface(Typeface.create("mexcellent-sys", Typeface.NORMAL));
+        }
+	if (lockDateFont == 33) {
+            button.setTypeface(Typeface.create("burnstown-sys", Typeface.NORMAL));
+        }
+        if (lockDateFont == 34) {
+            button.setTypeface(Typeface.create("dumbledor-sys", Typeface.NORMAL));
+        }
+	if (lockDateFont == 35) {
+            button.setTypeface(Typeface.create("phantombold-sys", Typeface.NORMAL));
+        }
+        if (lockDateFont == 36) {
+            button.setTypeface(Typeface.create("abelreg", Typeface.NORMAL));
+        }
+        if (lockDateFont == 37) {
+            button.setTypeface(Typeface.create("adamcg-pro", Typeface.NORMAL));
+        }
+        if (lockDateFont == 38) {
+            button.setTypeface(Typeface.create("adventpro", Typeface.NORMAL));
+        }
+        if (lockDateFont == 39) {
+            button.setTypeface(Typeface.create("alexana-neue", Typeface.NORMAL));
+        }
+        if (lockDateFont == 40) {
+            button.setTypeface(Typeface.create("alien-league", Typeface.NORMAL));
+        }
+        if (lockDateFont == 41) {
+            button.setTypeface(Typeface.create("archivonar", Typeface.NORMAL));
+        }
+        if (lockDateFont == 42) {
+            button.setTypeface(Typeface.create("autourone", Typeface.NORMAL));
+        }
+        if (lockDateFont == 43) {
+            button.setTypeface(Typeface.create("azedo-light", Typeface.NORMAL));
+        }
+        if (lockDateFont == 44) {
+            button.setTypeface(Typeface.create("badscript", Typeface.NORMAL));
+        }
+        if (lockDateFont == 45) {
+            button.setTypeface(Typeface.create("bignoodle-regular", Typeface.NORMAL));
+        }
+        if (lockDateFont == 46) {
+            button.setTypeface(Typeface.create("biko", Typeface.NORMAL));
+        }
+        if (lockDateFont == 47) {
+            button.setTypeface(Typeface.create("blern", Typeface.NORMAL));
+        }
+        if (lockDateFont == 48) {
+            button.setTypeface(Typeface.create("cherryswash", Typeface.NORMAL));
+        }
+        if (lockDateFont == 49) {
+            button.setTypeface(Typeface.create("cocon", Typeface.NORMAL));
+        }
+        if (lockDateFont == 50) {
+            button.setTypeface(Typeface.create("codystar", Typeface.NORMAL));
+        }
+        if (lockDateFont == 51) {
+            button.setTypeface(Typeface.create("fester", Typeface.NORMAL));
+        }
+        if (lockDateFont == 52) {
+            button.setTypeface(Typeface.create("fox-and-cat", Typeface.NORMAL));
+        }
+        if (lockDateFont == 53) {
+            button.setTypeface(Typeface.create("ginora-sans", Typeface.NORMAL));
+        }
+        if (lockDateFont == 54) {
+            button.setTypeface(Typeface.create("ibmplex-mono", Typeface.NORMAL));
+        }
+        if (lockDateFont == 55) {
+            button.setTypeface(Typeface.create("inkferno", Typeface.NORMAL));
+        }
+        if (lockDateFont == 56) {
+            button.setTypeface(Typeface.create("instruction", Typeface.NORMAL));
+        }
+        if (lockDateFont == 57) {
+            button.setTypeface(Typeface.create("jacklane", Typeface.NORMAL));
+        }
+        if (lockDateFont == 58) {
+            button.setTypeface(Typeface.create("jura-reg", Typeface.NORMAL));
+        }
+        if (lockDateFont == 59) {
+            button.setTypeface(Typeface.create("kellyslab", Typeface.NORMAL));
+        }
+        if (lockDateFont == 60) {
+            button.setTypeface(Typeface.create("metropolis1920", Typeface.NORMAL));
+        }
+        if (lockDateFont == 61) {
+            button.setTypeface(Typeface.create("monad", Typeface.NORMAL));
+        }
+        if (lockDateFont == 62) {
+            button.setTypeface(Typeface.create("noir", Typeface.NORMAL));
+        }
+        if (lockDateFont == 63) {
+            button.setTypeface(Typeface.create("northfont", Typeface.NORMAL));
+        }
+        if (lockDateFont == 64) {
+            button.setTypeface(Typeface.create("outrun-future", Typeface.NORMAL));
+        }
+        if (lockDateFont == 65) {
+            button.setTypeface(Typeface.create("pompiere", Typeface.NORMAL));
+        }
+        if (lockDateFont == 66) {
+            button.setTypeface(Typeface.create("qontra", Typeface.NORMAL));
+        }
+        if (lockDateFont == 67) {
+            button.setTypeface(Typeface.create("raleway-light", Typeface.NORMAL));
+        }
+        if (lockDateFont == 68) {
+            button.setTypeface(Typeface.create("reemkufi", Typeface.NORMAL));
+        }
+        if (lockDateFont == 69) {
+            button.setTypeface(Typeface.create("riviera", Typeface.NORMAL));
+        }
+        if (lockDateFont == 70) {
+            button.setTypeface(Typeface.create("satisfy", Typeface.NORMAL));
+        }
+        if (lockDateFont == 71) {
+            button.setTypeface(Typeface.create("seaweedsc", Typeface.NORMAL));
+        }
+        if (lockDateFont == 72) {
+            button.setTypeface(Typeface.create("sedgwick-ave", Typeface.NORMAL));
+        }
+        if (lockDateFont == 73) {
+            button.setTypeface(Typeface.create("themeable-clock", Typeface.NORMAL));
+        }
+        if (lockDateFont == 74) {
+            button.setTypeface(Typeface.create("the-outbox", Typeface.NORMAL));
+        }
+        if (lockDateFont == 75) {
+            button.setTypeface(Typeface.create("unionfont", Typeface.NORMAL));
+        }
+        if (lockDateFont == 76) {
+            button.setTypeface(Typeface.create("vibur", Typeface.NORMAL));
+        }
+        if (lockDateFont == 77) {
+            button.setTypeface(Typeface.create("voltaire", Typeface.NORMAL));
+        }
     }
 
     public void refreshdatesize() {
