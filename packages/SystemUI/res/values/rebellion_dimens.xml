@@ -60,7 +60,5 @@
     <!-- the padding on the start and the end of the statusbar -->
     <dimen name="status_bar_extra_padding">0dp</dimen>
 
-    <!-- QS detail view scrolling -->
-    <dimen name="qs_detail_item_height_twoline">72dp</dimen>
-
 </resources>
+
