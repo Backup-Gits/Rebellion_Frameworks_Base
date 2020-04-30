@@ -158,6 +158,7 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
                 R.layout.qs_paged_tile_layout, this, false);
         mTileLayout.setListening(mListening);
         addView((View) mTileLayout);
+        updateSettingsQs();
 
         mQsTileRevealController = new QSTileRevealController(mContext, this,
                 (PagedTileLayout) mTileLayout);
@@ -227,8 +228,6 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
             }
         });
         mDumpController = dumpController;
-
-        updateSettingsQs();
     }
 
     protected void addDivider() {
