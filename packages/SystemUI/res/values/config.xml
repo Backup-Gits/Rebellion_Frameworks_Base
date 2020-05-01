@@ -484,7 +484,6 @@
     <!-- Whether to show VoLTE icon in the status bar -->
     <bool name="config_display_volte">true</bool>
 
-<<<<<<< HEAD
     <!-- FPSInfoService FPS node file path -->
     <string name="config_fpsInfoSysNode" translatable="false"></string>
 
@@ -493,6 +492,3 @@
     <integer name="quick_settings_onthego_dialog_long_timeout">6000</integer>
 
 </resources>
-=======
-</resources>
->>>>>>> aa53cc72e92... SystemUI: Add ScreenRecord Tile
