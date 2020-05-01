@@ -59,7 +59,6 @@ import com.android.systemui.qs.tiles.SoundSearchTile;
 import com.android.systemui.qs.tiles.UiModeNightTile;
 import com.android.systemui.qs.tiles.SoundTile;
 import com.android.systemui.qs.tiles.ScreenshotTile;
-import com.android.systemui.qs.tiles.ScreenStabilizationTile;
 import com.android.systemui.qs.tiles.UserTile;
 import com.android.systemui.qs.tiles.WeatherTile;
 import com.android.systemui.qs.tiles.WifiTile;
@@ -110,7 +109,6 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<SoundSearchTile> mSoundSearchTileProvider;
     private final Provider<DataSwitchTile> mDataSwitchTileProvider;
     private final Provider<AdbOverNetworkTile> mAdbOverNetworkProvider;
-    private final Provider<ScreenStabilizationTile> mScreenStabilizationTileProvider;
     private final Provider<FPSInfoTile> mFPSInfoTileProvider;
     private final Provider<AODTile> mAODTileProvider;
     private final Provider<CPUInfoTile> mCPUInfoTileProvider;
@@ -150,7 +148,6 @@ public class QSFactoryImpl implements QSFactory {
             Provider<SoundSearchTile> soundSearchTileProvider,
             Provider<DataSwitchTile> dataSwitchTileProvider,
             Provider<AdbOverNetworkTile> adbOverNetworkProvider,
-            Provider<ScreenStabilizationTile> screenStabilizationTileProvider,
             Provider<AODTile> aodTileProvider,
             Provider<FPSInfoTile> fpsInfoTileProvider,
             Provider<CPUInfoTile> cpuInfoTileProvider) {
@@ -186,7 +183,6 @@ public class QSFactoryImpl implements QSFactory {
         mSoundSearchTileProvider = soundSearchTileProvider;
         mDataSwitchTileProvider = dataSwitchTileProvider;
         mAdbOverNetworkProvider = adbOverNetworkProvider;
-        mScreenStabilizationTileProvider = screenStabilizationTileProvider;
         mAODTileProvider = aodTileProvider;
         mFPSInfoTileProvider = fpsInfoTileProvider;
         mCPUInfoTileProvider = cpuInfoTileProvider;
@@ -277,8 +273,6 @@ public class QSFactoryImpl implements QSFactory {
                 return mDataSwitchTileProvider.get();
             case "adb_network":
                 return mAdbOverNetworkProvider.get();
-            case "screenstabilization":
-                return mScreenStabilizationTileProvider.get();
             case "aod":
                 return mAODTileProvider.get();
             case "fpsinfo":
