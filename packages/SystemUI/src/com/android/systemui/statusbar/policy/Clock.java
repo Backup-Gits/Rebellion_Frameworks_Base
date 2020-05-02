@@ -144,7 +144,7 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
     public static final int NEONEON = 29;
     public static final int THEMEABLE = 30;
     public static final int SAMSUNG = 31;
-    public static final int MEXECELLENT = 32;
+    public static final int MEXCELLENT = 32;
     public static final int BURNSTOWN = 33;
     public static final int DUMBLEDOR = 34;
     public static final int PHANTOMBOLD = 35;
@@ -865,8 +865,8 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
             case SAMSUNG:
                 setTypeface(Typeface.create("samsung-sys", Typeface.NORMAL));
                 break;
-            case MEXECELLENT:
-                setTypeface(Typeface.create("mexecellent-sys", Typeface.NORMAL));
+            case MEXCELLENT:
+                setTypeface(Typeface.create("mexcellent-sys", Typeface.NORMAL));
                 break;
             case BURNSTOWN:
                 setTypeface(Typeface.create("burnstown-sys", Typeface.NORMAL));
@@ -875,7 +875,7 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
                 setTypeface(Typeface.create("dumbledor-sys", Typeface.NORMAL));
                 break;
             case PHANTOMBOLD:
-                setTypeface(Typeface.create("phantonbold-sys", Typeface.NORMAL));
+                setTypeface(Typeface.create("phantombold-sys", Typeface.NORMAL));
                 break;
         }
     }
