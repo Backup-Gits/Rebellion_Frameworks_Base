@@ -456,6 +456,7 @@ public class PhoneStatusBarPolicy
                             BluetoothClass type = device.getBtClass();
                         if (batteryLevel != BluetoothDevice.BATTERY_LEVEL_UNKNOWN
                                          && showBatteryForThis(type) && mShowBluetoothBattery) {
+                                iconId = getBtLevelIconRes(batteryLevel);
                             } else {
                                 iconId = R.drawable.stat_sys_data_bluetooth_connected;
                             }
