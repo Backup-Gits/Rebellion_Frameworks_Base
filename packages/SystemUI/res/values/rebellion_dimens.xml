@@ -70,5 +70,8 @@
     <dimen name="ticker_text_top_padding">2dp</dimen>
     <dimen name="ticker_text_end_padding">10dp</dimen>
 
+    <!-- Status & QS Weather -->
+    <dimen name="qs_sb_weather_icon_size">32dp</dimen>
+
 </resources>
 
