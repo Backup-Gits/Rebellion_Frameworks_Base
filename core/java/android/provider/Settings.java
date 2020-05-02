@@ -4811,6 +4811,12 @@ public final class Settings {
         public static final String NETWORK_TRAFFIC_ARROW = "network_traffic_arrow";
 
         /**
+         * Network traffic font style
+         * @hide
+         */
+        public static final String NETWORK_TRAFFIC_FONT_STYLE = "network_traffic_font_style";
+
+        /**
          * What size to show for network traffic indicator in statusbar
          * @hide
          */
