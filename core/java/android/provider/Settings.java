@@ -6586,6 +6586,17 @@ public final class Settings {
         public static final String SCREENRECORD_VIDEO_BITRATE = "screenrecord_video_bitrate";
 
         /**
+         * @hide
+         */
+        public static final String ULTRA_POWER_SAVE = "ultra_power_save";
+
+        /**
+         * Last Performance mode
+         * @hide
+         */
+        public static final String LAST_PERFORMANCE_PROFILE= "last_performance_profile";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *

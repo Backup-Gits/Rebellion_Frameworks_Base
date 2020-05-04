@@ -40,6 +40,7 @@ import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.os.UserHandle;
+import android.provider.Settings;
 import android.view.IWindowManager;
 import android.view.WindowManagerGlobal;
 import android.view.InputDevice;
@@ -64,6 +65,13 @@ public class Utils {
 
     public static final String INTENT_SCREENSHOT = "action_take_screenshot";
     public static final String INTENT_REGION_SCREENSHOT = "action_take_region_screenshot";
+
+    public static final String CPU_2_PATH = "/sys/devices/system/cpu/cpu2/online";
+    public static final String CPU_3_PATH = "/sys/devices/system/cpu/cpu3/online";
+    public static final String CPU_4_PATH = "/sys/devices/system/cpu/cpu4/online";
+    public static final String CPU_5_PATH = "/sys/devices/system/cpu/cpu5/online";
+    public static final String CPU_6_PATH = "/sys/devices/system/cpu/cpu6/online";
+    public static final String CPU_7_PATH = "/sys/devices/system/cpu/cpu7/online";
 
     private static OverlayManager mOverlayService;
 
@@ -341,4 +349,24 @@ public class Utils {
         }
 
     }
+
+     // Current performance mode
+    public static String GetLastPerformanceProfileFromSettings(Context context) {
+          int state = Settings.System.getInt(context.getContentResolver(),
+                Settings.System.LAST_PERFORMANCE_PROFILE, 0);
+         return Integer.toString(state);
+    }
+
+     // Set performance mode
+    public static void SetLastPerformanceProfileToSettings(Context context, String mode) {
+        Settings.System.putIntForUser(context.getContentResolver(),
+                    Settings.System.LAST_PERFORMANCE_PROFILE, Integer.parseInt(mode), UserHandle.USER_CURRENT);
+    }
+
+    // Check for lockscreen indication accent color
+    public static boolean IntelligentPerformanceProfileAvailable() {
+        return Resources.getSystem().getBoolean(
+                        R.bool.config_intelligent_performance_profile);
+    }
 }
+
