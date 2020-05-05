@@ -653,12 +653,12 @@ public class NavigationBarEdgePanel extends View {
         // Apply a haptic on drag slop passed
         if (!mDragSlopPassed && touchTranslation > mSwipeThreshold) {
             mDragSlopPassed = true;
-            if (mBackHapticEnabled) {
+             if (mBackHapticEnabled) {
                 if (mVibrateOnOpening) {
                     mVibratorHelper.vibrate(VibrationEffect.EFFECT_TICK);
                     mVibrationTime = SystemClock.uptimeMillis();
                 } else {
-                    mVibrator.vibrate(VibrationEffect.createOneShot(30, VibrationEffect.DEFAULT_AMPLITUDE));
+            mVibrator.vibrate(VibrationEffect.get(VibrationEffect.EFFECT_HEAVY_CLICK));
                 }
             }
 

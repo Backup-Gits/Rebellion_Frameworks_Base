@@ -38,6 +38,8 @@ import android.os.RemoteException;
 import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.os.UserHandle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
@@ -190,6 +192,9 @@ public class EdgeBackGestureHandler implements DisplayListener {
     private int mLeftLongSwipeAction;
     private int mRightLongSwipeAction;
     private boolean mBlockNextEvent;
+    private boolean mBackHapticEnabled;
+
+    private final Vibrator mVibrator;
 
     public EdgeBackGestureHandler(Context context, OverviewProxyService overviewProxyService) {
         final Resources res = context.getResources();
@@ -218,6 +223,9 @@ public class EdgeBackGestureHandler implements DisplayListener {
         mAssistManager = Dependency.get(AssistManager.class);
         mHandler = new Handler();
         setLongSwipeOptions();
+
+        mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+
     }
 
     public void updateCurrentUserResources(Resources res) {
@@ -502,6 +510,9 @@ public class EdgeBackGestureHandler implements DisplayListener {
         mRightLongSwipeAction = Settings.System.getIntForUser(mContext.getContentResolver(),
             Settings.System.RIGHT_LONG_BACK_SWIPE_ACTION, 0,
             UserHandle.USER_CURRENT);
+        mBackHapticEnabled = Settings.System.getIntForUser(mContext.getContentResolver(),
+            Settings.System.BACK_GESTURE_HAPTIC, 1,
+            UserHandle.USER_CURRENT) == 1;
     }
 
     private void onMotionEvent(MotionEvent ev) {
@@ -614,6 +625,9 @@ public class EdgeBackGestureHandler implements DisplayListener {
             mBlockNextEvent = true;
             mEdgePanel.resetOnDown();
             triggerAction(mIsOnLeftEdge);
+            if (mBackHapticEnabled) {
+            mVibrator.vibrate(VibrationEffect.get(VibrationEffect.EFFECT_HEAVY_CLICK));
+            }
         }
     }
 
