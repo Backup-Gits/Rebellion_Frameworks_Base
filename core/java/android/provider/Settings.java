@@ -6271,18 +6271,6 @@ public final class Settings {
         public static final String ON_THE_GO_CAMERA = "on_the_go_camera";
 
         /**
-        * Powermenu Background
-        * @hide
-        */
-        public static final String POWER_MENU_BG = "power_menu_bg";
-
-        /**
-        * Powermenu Background Style
-        * @hide
-        */
-        public static final String POWER_MENU_BG_STYLE = "power_menu_bg_style";
-
-        /**
          * Color of toast message icon
          * @hide
          */
