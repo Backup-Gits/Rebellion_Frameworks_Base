@@ -260,6 +260,147 @@ public class TypographicClock extends TextView {
         if (lockClockFont == 35) {
             setTypeface(Typeface.create("phantombold-sys", Typeface.NORMAL));
         }
+        if (lockClockFont == 36) {
+            setTypeface(Typeface.create("abelreg", Typeface.NORMAL));
+        }
+        if (lockClockFont == 37) {
+            setTypeface(Typeface.create("adamcg-pro", Typeface.NORMAL));
+        }
+        if (lockClockFont == 38) {
+            setTypeface(Typeface.create("adventpro", Typeface.NORMAL));
+        }
+        if (lockClockFont == 39) {
+            setTypeface(Typeface.create("alexana-neue", Typeface.NORMAL));
+        }
+        if (lockClockFont == 40) {
+            setTypeface(Typeface.create("alien-league", Typeface.NORMAL));
+        }
+        if (lockClockFont == 41) {
+            setTypeface(Typeface.create("archivonar", Typeface.NORMAL));
+        }
+        if (lockClockFont == 42) {
+            setTypeface(Typeface.create("autourone", Typeface.NORMAL));
+        }
+        if (lockClockFont == 43) {
+            setTypeface(Typeface.create("azedo-light", Typeface.NORMAL));
+        }
+        if (lockClockFont == 44) {
+            setTypeface(Typeface.create("badscript", Typeface.NORMAL));
+        }
+        if (lockClockFont == 45) {
+            setTypeface(Typeface.create("bignoodle-regular", Typeface.NORMAL));
+        }
+        if (lockClockFont == 46) {
+            setTypeface(Typeface.create("biko", Typeface.NORMAL));
+        }
+        if (lockClockFont == 47) {
+            setTypeface(Typeface.create("blern", Typeface.NORMAL));
+        }
+        if (lockClockFont == 48) {
+            setTypeface(Typeface.create("cherryswash", Typeface.NORMAL));
+        }
+        if (lockClockFont == 49) {
+            setTypeface(Typeface.create("cocon", Typeface.NORMAL));
+        }
+        if (lockClockFont == 50) {
+            setTypeface(Typeface.create("codystar", Typeface.NORMAL));
+        }
+        if (lockClockFont == 51) {
+            setTypeface(Typeface.create("fester", Typeface.NORMAL));
+        }
+        if (lockClockFont == 52) {
+            setTypeface(Typeface.create("fox-and-cat", Typeface.NORMAL));
+        }
+        if (lockClockFont == 53) {
+            setTypeface(Typeface.create("ginora-sans", Typeface.NORMAL));
+        }
+        if (lockClockFont == 54) {
+            setTypeface(Typeface.create("gobold-sys", Typeface.NORMAL));
+        }
+        if (lockClockFont == 55) {
+            setTypeface(Typeface.create("ibmplex-mono", Typeface.NORMAL));
+        }
+        if (lockClockFont == 56) {
+            setTypeface(Typeface.create("inkferno", Typeface.NORMAL));
+        }
+        if (lockClockFont == 57) {
+            setTypeface(Typeface.create("instruction", Typeface.NORMAL));
+        }
+        if (lockClockFont == 58) {
+            setTypeface(Typeface.create("jacklane", Typeface.NORMAL));
+        }
+        if (lockClockFont == 59) {
+            setTypeface(Typeface.create("jura-reg", Typeface.NORMAL));
+        }
+        if (lockClockFont == 60) {
+            setTypeface(Typeface.create("kellyslab", Typeface.NORMAL));
+        }
+        if (lockClockFont == 61) {
+            setTypeface(Typeface.create("metropolis1920", Typeface.NORMAL));
+        }
+        if (lockClockFont == 62) {
+            setTypeface(Typeface.create("monad", Typeface.NORMAL));
+        }
+        if (lockClockFont == 63) {
+            setTypeface(Typeface.create("neonneon", Typeface.NORMAL));
+        }
+        if (lockClockFont == 64) {
+            setTypeface(Typeface.create("noir", Typeface.NORMAL));
+        }
+        if (lockClockFont == 65) {
+            setTypeface(Typeface.create("northfont", Typeface.NORMAL));
+        }
+        if (lockClockFont == 66) {
+            setTypeface(Typeface.create("outrun-future", Typeface.NORMAL));
+        }
+        if (lockClockFont == 67) {
+            setTypeface(Typeface.create("pompiere", Typeface.NORMAL));
+        }
+        if (lockClockFont == 68) {
+            setTypeface(Typeface.create("qontra", Typeface.NORMAL));
+        }
+        if (lockClockFont == 69) {
+            setTypeface(Typeface.create("raleway-light", Typeface.NORMAL));
+        }
+        if (lockClockFont == 70) {
+            setTypeface(Typeface.create("reemkufi", Typeface.NORMAL));
+        }
+        if (lockClockFont == 71) {
+            setTypeface(Typeface.create("riviera", Typeface.NORMAL));
+        }
+        if (lockClockFont == 72) {
+            setTypeface(Typeface.create("roadrage-sys", Typeface.NORMAL));
+        }
+        if (lockClockFont == 73) {
+            setTypeface(Typeface.create("satisfy", Typeface.NORMAL));
+        }
+        if (lockClockFont == 74) {
+            setTypeface(Typeface.create("seaweedsc", Typeface.NORMAL));
+        }
+        if (lockClockFont == 75) {
+            setTypeface(Typeface.create("sedgwick-ave", Typeface.NORMAL));
+        }
+        if (lockClockFont == 76) {
+            setTypeface(Typeface.create("snowstorm-sys", Typeface.NORMAL));
+        }
+        if (lockClockFont == 77) {
+            setTypeface(Typeface.create("source-sans-pro", Typeface.NORMAL));
+        }
+        if (lockClockFont == 78) {
+            setTypeface(Typeface.create("themeable-clock", Typeface.NORMAL));
+        }
+        if (lockClockFont == 79) {
+            setTypeface(Typeface.create("the-outbox", Typeface.NORMAL));
+        }
+        if (lockClockFont == 80) {
+            setTypeface(Typeface.create("unionfont", Typeface.NORMAL));
+        }
+        if (lockClockFont == 81) {
+            setTypeface(Typeface.create("vibur", Typeface.NORMAL));
+        }
+        if (lockClockFont == 82) {
+            setTypeface(Typeface.create("voltaire", Typeface.NORMAL));
+        }
     }
 
     public void refreshclocksize() {
