@@ -4600,6 +4600,12 @@ public final class Settings {
         /** @hide */
         private static final Validator BACK_GESTURE_HEIGHT_VALIDATOR =
                 ANY_INTEGER_VALIDATOR;
+        /** @hide */
+        public static final String BACK_GESTURE_BLOCK_IME = "back_gesture_block_ime";
+
+        /** @hide */
+        private static final Validator BACK_GESTURE_BLOCK_IME_VALIDATOR =
+                BOOLEAN_VALIDATOR;
 
         /**
          * Whether the user has already accepted MediaProjection permission for the built-in screenrecorder
@@ -6887,6 +6893,8 @@ public final class Settings {
             STATUS_BAR_TICKER_TICK_DURATION,
             NAVIGATION_HANDLE_WIDTH,
             STATUS_BAR_CUSTOM_HEADER_HEIGHT,
+            BACK_GESTURE_HAPTIC,
+            BACK_GESTURE_BLOCK_IME,
         };
 
         /**
@@ -7113,6 +7121,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(STATUS_BAR_TICKER_TICK_DURATION);
             PRIVATE_SETTINGS.add(NAVIGATION_HANDLE_WIDTH);
             PRIVATE_SETTINGS.add(STATUS_BAR_CUSTOM_HEADER_HEIGHT);
+            PRIVATE_SETTINGS.add(BACK_GESTURE_BLOCK_IME);
         }
 
         /**
@@ -7305,6 +7314,7 @@ public final class Settings {
             VALIDATORS.put(DISPLAY_COLOR_ADJUSTMENT, DISPLAY_COLOR_ADJUSTMENT_VALIDATOR);
             VALIDATORS.put(DISPLAY_PICTURE_ADJUSTMENT, DISPLAY_PICTURE_ADJUSTMENT_VALIDATOR);
             VALIDATORS.put(LIVE_DISPLAY_HINTED, LIVE_DISPLAY_HINTED_VALIDATOR);
+	    VALIDATORS.put(BACK_GESTURE_BLOCK_IME,BACK_GESTURE_BLOCK_IME_VALIDATOR);
         }
 
         /**
@@ -18465,3 +18475,4 @@ public final class Settings {
         return packages[0];
     }
 }
+
