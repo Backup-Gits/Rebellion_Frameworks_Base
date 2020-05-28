@@ -150,7 +150,7 @@ public class RemoteAnimationControllerTest extends WindowTestsBase {
     @Test
     public void testTimeout_scaled() throws Exception {
         try {
-            mWm.setAnimationScale(2, 5.0f);
+            mWm.setAnimationScale(0, 0.0f);
             final WindowState win = createWindow(null /* parent */, TYPE_BASE_APPLICATION,
                     "testWin");
             final AnimationAdapter adapter = mController.createRemoteAnimationRecord(
@@ -169,7 +169,7 @@ public class RemoteAnimationControllerTest extends WindowTestsBase {
             verify(mMockRunner).onAnimationCancelled();
             verify(mFinishedCallback).onAnimationFinished(eq(adapter));
         } finally {
-            mWm.setAnimationScale(2, 1.0f);
+            mWm.setAnimationScale(0, 0.0f);
         }
     }
 
